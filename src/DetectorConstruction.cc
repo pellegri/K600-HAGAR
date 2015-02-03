@@ -217,6 +217,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     TIARA_rotm[0].rotateY(-35.0661884*deg);
     TIARA_rotm[0].rotateZ((-54.1496802 + (0*72.))*deg);
     
+    ////    For viewing
+    //TIARA_rotm[0].rotateZ((90. - 30.3)*deg);
     
     //  TIARA 2
     TIARA_Presence[1] = true;
