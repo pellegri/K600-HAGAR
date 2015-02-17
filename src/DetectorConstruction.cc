@@ -208,7 +208,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //offset_TIARA_BeamAxis = -131.0000; // mm
     offset_TIARA_BeamAxis = -131.3217600; // mm
     
-    G4double offset_estimate = -0.24 - 3.;
     
     //  TIARA 1
     TIARA_Presence[0] = true;
@@ -426,11 +425,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     /////////////////////////////////////
     //  K600 Target
-    K600_Target_Presence = true;
+    K600_Target_Presence = false;
     
     /////////////////////////////////////
     //  K600 Target Backing
-    K600_TargetBacking_Presence = true;
+    K600_TargetBacking_Presence = false;
     
     
     // Define materials
@@ -642,11 +641,12 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     
     //////////////////////////////////////////////////////////
-    //                      TARGET
+    //                  TARGET DEFINITION
     //////////////////////////////////////////////////////////
     
     G4double targetThickness = 2.42; // um
     //G4double targetThickness = 2.18; // um
+    //G4double targetThickness = 3.5; // um
     //G4double targetThickness = 4.5; // um
     
     G4ThreeVector positionTarget = G4ThreeVector(0,0,0);
