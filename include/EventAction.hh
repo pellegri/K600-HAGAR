@@ -118,6 +118,18 @@ const G4bool        Activate_CyclotronBeam_Timing = false;
 const G4int         Particles_per_Bunch = 100;  // Particles per Bunch
 
 
+
+////////////////////////////////////////////////////
+////    Variables for calculating VDC observables
+
+const G4double a0 = -1.01703, a1 = -6.25653e-05, a2 = 0.;
+const G4double b0 = 33.6679, b1 = -0.0025703, b2 = 0.;
+
+//  Variables for CalcYFP
+const G4double sinThetaU = 0.766044443;
+const G4double tanThetaU = 1.191753593;
+
+
 class EventAction : public G4UserEventAction
 {
 public:
@@ -135,8 +147,8 @@ public:
     
     /////////////////////
     //      TIARA
-    G4double GainTIARA = 1.0;
-    G4double OffsetTIARA = 0.0;
+    G4double GainTIARA;
+    G4double OffsetTIARA;
     
     G4double    TIARA_AA[5][16][8][3][TIARA_TotalTimeSamples];
     //  First index designates the TIARANo
@@ -158,8 +170,8 @@ public:
     
     ////////////////////////
     //      CLOVERS
-    G4double GainCLOVER = 1.0;
-    G4double OffsetCLOVER = 0.0;
+    G4double GainCLOVER;
+    G4double OffsetCLOVER;
     
     G4double    CLOVER_HPGeCrystal_EDep[8][4][CLOVER_TotalTimeSamples];
     G4bool      CLOVER_HPGeCrystal_EDepVETO[8][4][CLOVER_TotalTimeSamples];
@@ -177,8 +189,8 @@ public:
     
     /////////////////////////////////////////
     //          PADDLE DETECTORS
-    G4double GainPADDLE = 1.0;
-    G4double OffsetPADDLE = 0.0;
+    G4double GainPADDLE;
+    G4double OffsetPADDLE;
     
     G4double    PADDLE_EDep[3][PADDLE_TotalTimeSamples];
     G4double    PADDLE_TOF[3][PADDLE_TotalTimeSamples];
@@ -201,8 +213,8 @@ public:
     
     /////////////////////////////////////////
     //          VDC DETECTORS
-    G4double GainVDC = 1.0;
-    G4double OffsetVDC = 0.0;
+    G4double GainVDC;
+    G4double OffsetVDC;
     
     // VDC_Observables[i][k]
     G4double    VDC_Observables[4][hit_buffersize]; // buffer of approx. 50 possible hits
@@ -217,13 +229,11 @@ public:
     G4double ThetaFP[2];
     G4double ThetaSCAT[2];
     
-    G4double a, a0 = -1.01703, a1 = -6.25653e-05, a2 = 0;
-    G4double b, b0 = 33.6679, b1 = -0.0025703, b2 = 0;
+    G4double a;
+    G4double b;
     G4double EnergyThreshold;
     
     //  Variables for CalcYFP
-    G4double sinThetaU = 0.766044443;
-    G4double tanThetaU = 1.191753593;
     G4double tmp1,tmp2;
     G4double tanThetaFP;
     
@@ -246,7 +256,33 @@ public:
     void RayTrace(G4int VDCNo, G4int XU_Wireplane);
     void CalcYFP(G4int VDCNo);
     
+    ////    WireplaneTraversePos[A][B][C]
+    ////    A -> Wireplane Number. 0,1->VDC1 and 2,3->VDC2
+    ////    B -> 0: PRE point, the last step point before traversing Wireplane
+    ////    B -> 1: POST point, the first step point after traversing Wireplane
+    ////    B -> 2: TRAVERSAL point accross the wireplane
+    ////    C -> 0, 1, 2: x, y and z positions respectively
+    G4double    WireplaneTraversePos[4][3][3];
     
+    void SetVDC_WireplaneTraversePos(G4int WireplaneNumber, G4int i, G4int component, G4double componentPosition)
+    {
+        WireplaneTraversePos[WireplaneNumber][i][component] = componentPosition;
+    }
+    
+    ////    WireplaneTraversePOST[A]
+    ////    A -> Wireplane Number
+    ////    True implies that the POST point has been accounted for, False it is unnacounted for
+    G4bool      WireplaneTraversePOST[4];
+    
+    void SetVDC_WireplaneTraversePOST(G4int WireplaneNumber, G4bool decision)
+    {
+        WireplaneTraversePOST[WireplaneNumber] = decision;
+    }
+    
+    G4bool GetVDC_WireplaneTraversePOST(G4int WireplaneNumber)
+    {
+        return WireplaneTraversePOST[WireplaneNumber];
+    }
     
     /////////////////////////////////
     //      GEOMETRY ANALYSIS
@@ -310,13 +346,27 @@ inline void EventAction::RayTrace(G4int VDCNo, G4int XU_Wireplane)
     
     G4int wireChannelMin, wireChannelMax, wireOffset;
     
+    ////////////////    Wire channel mapping for the case when the X wireframe is upstream of the U wireframe
     ////    VDC 1
-    if(VDCNo==0 && XU_Wireplane==0) wireChannelMin = 0, wireChannelMax = 142, wireOffset = 0, EnergyThreshold = VDC1_U_WIRE_ThresholdEnergy;
-    if(VDCNo==0 && XU_Wireplane==1) wireChannelMin = 143, wireChannelMax = 340, wireOffset = 143, EnergyThreshold = VDC1_X_WIRE_ThresholdEnergy;
+    if(VDCNo==0 && XU_Wireplane==0) wireChannelMin = 0, wireChannelMax = 197, wireOffset = 0, EnergyThreshold = VDC1_X_WIRE_ThresholdEnergy;
+    if(VDCNo==0 && XU_Wireplane==1) wireChannelMin = 198, wireChannelMax = 340, wireOffset = 143, EnergyThreshold = VDC1_U_WIRE_ThresholdEnergy;
     
     ////    VDC 2
-    if(VDCNo==1 && XU_Wireplane==0) wireChannelMin = 341, wireChannelMax = 483, wireOffset = 341, EnergyThreshold = VDC2_U_WIRE_ThresholdEnergy;
-    if(VDCNo==1 && XU_Wireplane==1) wireChannelMin = 484, wireChannelMax = 681, wireOffset = 484, EnergyThreshold = VDC2_X_WIRE_ThresholdEnergy;
+    if(VDCNo==1 && XU_Wireplane==0) wireChannelMin = 341, wireChannelMax = 538, wireOffset = 341, EnergyThreshold = VDC2_X_WIRE_ThresholdEnergy;
+    if(VDCNo==1 && XU_Wireplane==1) wireChannelMin = 539, wireChannelMax = 681, wireOffset = 484, EnergyThreshold = VDC2_U_WIRE_ThresholdEnergy;
+    
+    /*
+     ////////////////    Wire channel mapping for the case when the U wireframe is upstream of the X wireframe
+     ////    VDC 1
+     if(VDCNo==0 && XU_Wireplane==0) wireChannelMin = 0, wireChannelMax = 142, wireOffset = 0, EnergyThreshold = VDC1_U_WIRE_ThresholdEnergy;
+     if(VDCNo==0 && XU_Wireplane==1) wireChannelMin = 143, wireChannelMax = 340, wireOffset = 143, EnergyThreshold = VDC1_X_WIRE_ThresholdEnergy;
+     
+     ////    VDC 2
+     if(VDCNo==1 && XU_Wireplane==0) wireChannelMin = 341, wireChannelMax = 483, wireOffset = 341, EnergyThreshold = VDC2_U_WIRE_ThresholdEnergy;
+     if(VDCNo==1 && XU_Wireplane==1) wireChannelMin = 484, wireChannelMax = 681, wireOffset = 484, EnergyThreshold = VDC2_X_WIRE_ThresholdEnergy;
+     */
+    
+    
     
     for(G4int k=0; k<hit_buffersize; k++)
     {
