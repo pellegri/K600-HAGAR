@@ -215,11 +215,13 @@ void EventAction::EndOfEventAction(const G4Event* event)
                 for(G4int l=0; l<8; l++)
                 {
                     ////    Processing the Energies of the TIARA Detectors
-                    TIARA_AA[i][j][l][0][k] = G4RandGauss::shoot(TIARA_AA[i][j][l][0][k], (0.010/2.3548));
+                    //TIARA_AA[i][j][l][0][k] = G4RandGauss::shoot(TIARA_AA[i][j][l][0][k], (0.010/2.3548));
+                    //if(TIARA_AA[i][j][l][0][k] >= G4RandGauss::shoot(TIARA_AA_ThresholdEnergy, 0.1))
                     
-                    if(TIARA_AA[i][j][l][0][k] >= G4RandGauss::shoot(TIARA_AA_ThresholdEnergy, 0.1))
-                        //if(TIARA_AA[i][j][l][0][k] >= 0.1)
+                    if(TIARA_AA[i][j][l][0][k] >= TIARA_AA_ThresholdEnergy)
                     {
+                        TIARA_AA[i][j][l][0][k] = G4RandGauss::shoot(TIARA_AA[i][j][l][0][k], 0.036);
+                        
                         ////      Counts versus Energy for each TIARA
                         //analysisManager->FillH1(1+i, GainTIARA*TIARA_AA[i][j][l][0][k] + OffsetTIARA);
                         
@@ -231,6 +233,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
                         //analysisManager->FillNtupleIColumn(0, 0, i);
                         //analysisManager->FillNtupleIColumn(0, 1, j);
                         //analysisManager->FillNtupleIColumn(0, 2, k);
+                        
                         
                         //      TIARANo
                         analysisManager->FillNtupleIColumn(0, 0, i);
@@ -382,7 +385,44 @@ void EventAction::EndOfEventAction(const G4Event* event)
     CalcYFP(1);
     //G4cout << "Here is the Xpos[1] (VDC2)     -->     "<< Xpos[1] << G4endl;
     //G4cout << "Here is the ThetaFP[1] (VDC2)     -->     "<< ThetaFP[1] << G4endl;
+    ////    Calculating the "True" positions through which the primary particle traverses the Wirechambers
+    G4double a, b;
     
+    for(G4int i=0; i<4; i++)
+    {
+        ////    This condition checks if the PRE and POST points for each wireplane have been accounted for
+        ////    PRE point, the last step point before traversing Wireplane
+        ////    POST point, the first step point after traversing Wireplane
+        
+        /*
+         if(WireplaneTraversePos[i][0][2]<0.)
+         {
+         G4cout << "Here we are in the Event Action 1" << G4endl;
+         }
+         
+         if(WireplaneTraversePOST[i])
+         {
+         G4cout << "Here we are in the Event Action 2" << G4endl;
+         }
+         */
+        
+        if(WireplaneTraversePos[i][0][2]<0. && WireplaneTraversePOST[i])
+        {
+            //G4cout << "Here we are in the Event Action" << G4endl;
+            
+            ////    j==0 and j==1 searches for the X and Y components of the local position of traversal accross each wireplane
+            for(G4int j=0; j<2; j++)
+            {
+                a = (WireplaneTraversePos[i][1][j] - WireplaneTraversePos[i][0][j])/(WireplaneTraversePos[i][1][2] - WireplaneTraversePos[i][0][2]);
+                b = WireplaneTraversePos[i][0][j] - a*WireplaneTraversePos[i][0][2];
+                
+                //WireplaneTraversePos[i][2][j] = b;
+                WireplaneTraversePos[i][2][j] = b + (936./2); // Offset to be aligned with the Raytraced position
+                
+            }
+        }
+    }
+
     
     
     ////////////////////////////////////////////////////
@@ -390,19 +430,32 @@ void EventAction::EndOfEventAction(const G4Event* event)
     ////                DataTreeSim                 ////
     ////                                            ////
     ////////////////////////////////////////////////////
-    /*
-     analysisManager->FillNtupleDColumn(0, 0, Xpos[0]);
-     analysisManager->FillNtupleDColumn(0, 1, Y[0]);
-     analysisManager->FillNtupleDColumn(0, 2, ThetaFP[0]);
-     analysisManager->FillNtupleDColumn(0, 3, ThetaSCAT[0]);
-     
-     analysisManager->FillNtupleDColumn(0, 4, Xpos[1]);
-     analysisManager->FillNtupleDColumn(0, 5, Y[1]);
-     analysisManager->FillNtupleDColumn(0, 6, ThetaFP[1]);
-     analysisManager->FillNtupleDColumn(0, 7, ThetaSCAT[1]);
-     */
     
-    //analysisManager->AddNtupleRow(0);
+    analysisManager->FillNtupleDColumn(0, 0, Xpos[0]);
+    analysisManager->FillNtupleDColumn(0, 1, Y[0]);
+    analysisManager->FillNtupleDColumn(0, 2, ThetaFP[0]);
+    analysisManager->FillNtupleDColumn(0, 3, ThetaSCAT[0]);
+    
+    analysisManager->FillNtupleDColumn(0, 4, Xpos[1]);
+    analysisManager->FillNtupleDColumn(0, 5, Y[1]);
+    analysisManager->FillNtupleDColumn(0, 6, ThetaFP[1]);
+    analysisManager->FillNtupleDColumn(0, 7, ThetaSCAT[1]);
+    
+    ////    Points of traversal
+    ////    VDC1
+    analysisManager->FillNtupleDColumn(0, 8, WireplaneTraversePos[0][2][0]);
+    analysisManager->FillNtupleDColumn(0, 9, WireplaneTraversePos[0][2][1]);
+    analysisManager->FillNtupleDColumn(0, 10, WireplaneTraversePos[1][2][0]);
+    analysisManager->FillNtupleDColumn(0, 11, WireplaneTraversePos[1][2][1]);
+    
+    ////    VDC2
+    analysisManager->FillNtupleDColumn(0, 12, WireplaneTraversePos[2][2][0]);
+    analysisManager->FillNtupleDColumn(0, 13, WireplaneTraversePos[2][2][1]);
+    analysisManager->FillNtupleDColumn(0, 14, WireplaneTraversePos[3][2][0]);
+    analysisManager->FillNtupleDColumn(0, 15, WireplaneTraversePos[3][2][1]);
+    
+    
+    analysisManager->AddNtupleRow(0);
     
     
     
@@ -523,7 +576,10 @@ void EventAction::EndOfEventAction(const G4Event* event)
                 
                 normVector = pow(pow(av_xPos,2) + pow(av_yPos,2) + pow(av_zPos,2) , 0.5);
                 theta = acos(av_zPos/normVector)/deg;
-                solidAngle = (0.5)*(GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
+                solidAngle = (GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
+
+                ////    The 0.5 factor is correct for a biased calculation where the primary particle vector only spans 1 hemisphere
+                //solidAngle = (0.5)*(GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
                 
                 /*
                  G4cout << "" << G4endl;
