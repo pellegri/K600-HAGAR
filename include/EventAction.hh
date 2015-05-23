@@ -51,7 +51,7 @@ using namespace std;
 ///////////////     GEOMETRY ANALYSIS
 const G4bool        GA_MODE = true;
 const G4bool        GA_LineOfSightMODE = true;
-const G4int         GA_numberOfEvents = 200000;
+const G4int         GA_numberOfEvents = 40000000;
 
 const G4bool        GA_GenInputVar = true;
 const G4bool        GA_GenAngDist = false;
