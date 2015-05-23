@@ -564,10 +564,10 @@ void EventAction::EndOfEventAction(const G4Event* event)
                 
                 normVector = pow(pow(av_xPos,2) + pow(av_yPos,2) + pow(av_zPos,2) , 0.5);
                 theta = acos(av_zPos/normVector)/deg;
-                solidAngle = (GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
+                //solidAngle = (GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
 
                 ////    The 0.5 factor is correct for a biased calculation where the primary particle vector only spans 1 hemisphere
-                //solidAngle = (0.5)*(GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
+                solidAngle = (0.5)*(GA_TIARA_AA_stor[i][3]/GA_numberOfEvents_double);
                 
                 /*
                  G4cout << "" << G4endl;
