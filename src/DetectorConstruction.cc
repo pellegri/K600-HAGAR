@@ -216,8 +216,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     TIARA_rotm[0].rotateY(-35.0661884*deg);
     TIARA_rotm[0].rotateZ((-54.1496802 + (0*72.))*deg);
     
-    ////    For viewing
-    //TIARA_rotm[0].rotateZ((90. - 30.3)*deg);
+    ////    This positioning if for viewing the TIARA
+    //TIARA_rotm[0].rotateZ(59.63*deg);
     
     //  TIARA 2
     TIARA_Presence[1] = true;
@@ -245,6 +245,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     //  TIARA 5
     //  This TIARA was not present for PR226 and therefore the TIARA_AA_CentrePosition[4] was not yet measured from SolidEdge. Still to do for COMPLETENESS.
+    //  In principle, one only has to rotate the TIARA_AA_CentrePosition[] for a particular MMM about the Z-axis for all 5 MMM's in the CAKE array configuration
     TIARA_Presence[4] = false;
     TIARA_AA_CentrePosition[4] = G4ThreeVector(0.90*mm, -1.50*mm, offset_TIARA_BeamAxis*mm);
     TIARA_rotm[4].rotateX(-37.891*deg);
@@ -2684,14 +2685,15 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     //TIARA_PCB_VisAtt->SetForceSolid(true);
     
     //  AA - RS
-    G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(0., 1., 1.));
+    //G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(0., 0.2, 0.2));
+    G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0));
     //TIARA_AA_RS_VisAtt->SetForceSolid(true);
     TIARA_AA_RS_VisAtt->SetForceLineSegmentsPerCircle(100);
     
     //  Silicon Wafer
-    G4VisAttributes* TIARA_SiliconWafer_VisAtt = new G4VisAttributes(G4Colour(0., 1., 1.));
+    G4VisAttributes* TIARA_SiliconWafer_VisAtt = new G4VisAttributes(G4Colour(0., 0.2, 0.2));
     //TIARA_SiliconWafer_VisAtt->SetForceSolid(true);
-    //TIARA_SiliconWafer_VisAtt->SetForceLineSegmentsPerCircle(100);
+    TIARA_SiliconWafer_VisAtt->SetForceLineSegmentsPerCircle(100);
     
     
     //  DL
