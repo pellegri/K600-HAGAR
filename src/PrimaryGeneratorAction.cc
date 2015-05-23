@@ -74,14 +74,14 @@ fParticleGun(0)
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("e-");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("alpha");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("proton");
-    //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("geantino");
+    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("geantino");
     
-    //fParticleGun->SetParticleDefinition(particleDefinition);
+    fParticleGun->SetParticleDefinition(particleDefinition);
     
     //fParticleGun->SetParticleEnergy(0.*MeV);
     //fParticleGun->SetParticleEnergy(0.100*MeV);
     //fParticleGun->SetParticleEnergy(1.332*MeV);
-    //fParticleGun->SetParticleEnergy(7.0*MeV);
+    fParticleGun->SetParticleEnergy(7.0*MeV);
     
     //fParticleGun->SetParticleEnergy(200.*MeV);
     //fParticleGun->SetParticleEnergy(22.5*MeV);
@@ -136,7 +136,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     //          To generate radioactive decay - enabled particles
     ///////////////////////////////////////////////////////////////
     
-    
+    /*
     //G4int Z = 3, A = 11;
     //G4int Z = 6, A = 21;
     //G4int Z = 10, A = 18;
@@ -154,19 +154,33 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     ion->SetPDGLifeTime(0.5485101634774202e-10*ns);
     fParticleGun->SetParticleDefinition(ion);
     fParticleGun->SetParticleCharge(ionCharge);
-    
+    */
 
     
-    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
     //       Initial Position Distribution of Particle
-    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
     
     G4double targetZoffset = -1000.0; // um
     G4double targetThickness = 2.42; // um
     G4double InitialPosition = G4RandFlat::shoot(-(targetThickness/2) + targetZoffset, (targetThickness/2) + targetZoffset); // um
     
-    fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., InitialPosition*um));
     
+    ///////////////////////////////////////////////////////////
+    //       Initial Position Distribution of Particle
+    ///////////////////////////////////////////////////////////
+    
+    G4double theta = 2*M_PI*G4UniformRand();
+    //G4double mz = -1.0 + 2*G4UniformRand();
+    G4double mz = -1.0 + G4UniformRand();
+    
+    G4double a = sqrt(1-(mz*mz));
+    
+    mx = a*cos(theta);
+    my = a*sin(theta);
+    
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(mx, my, mz));
+
     
     ///////////////////////////////////////////////////
     //       Initial Energy Distribution of Particle
@@ -183,6 +197,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     
     ////////////////////////
     ////    BiRelKin
+    /*
     double m[4], T[4], E[4], p[4];
     double ThSCAT, ThSCAT_Recoil, Ex, Phi;
     G4double mx, my, mz;
@@ -211,24 +226,27 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     ThSCAT = G4RandFlat::shoot( -2., 2.); // deg
     
     
-    /*
     ////    Gaussian distributed ThSCAT
-    ThSCAT = 2.1;
-    while(pow(ThSCAT*ThSCAT, 0.5)>2.)
-    {
-        ThSCAT = G4RandGauss::shoot(0., 1.0);
-    }
+    //ThSCAT = 2.1;
+    //while(pow(ThSCAT*ThSCAT, 0.5)>2.)
+    //{
+    //    ThSCAT = G4RandGauss::shoot(0., 1.0);
+    //}
     //if(abs(ThSCAT)>2.) "while condition has been breached";
-    */
     
     
+    ////    12.049 MeV 0+, 16O
     Ex = G4RandGauss::shoot(12.049, (0.012/2.3548));
+    
+    ////    12.049 MeV 0+, 16O
+    //Ex = G4RandGauss::shoot(15.097, (0.166/2.3548));
+
     
     BiRelKin(m, T, E, p, ThSCAT, ThSCAT_Recoil, Ex);
     
     ////    Setting Recoil Energy
-    //fParticleGun->SetParticleEnergy(T[3]*MeV);
-    fParticleGun->SetParticleEnergy(0.*MeV);
+    fParticleGun->SetParticleEnergy(T[3]*MeV);
+    //fParticleGun->SetParticleEnergy(0.*MeV);
     //G4cout << "Here is the Recoil Energy:    " << T[3] << G4endl;
     
     
@@ -240,7 +258,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     mz = abs(cos(ThSCAT_Recoil*deg));
 
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector( mx, my, mz));
-
+    */
     
     
     /*
