@@ -137,14 +137,45 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn(0, "U2_Ypos");
     */
     
-    ////    TIARA Detectors
-    analysisManager->CreateNtupleIColumn(0, "TIARANo");
-    analysisManager->CreateNtupleIColumn(0, "TIARA_RowNo");
-    analysisManager->CreateNtupleIColumn(0, "TIARA_SectorNo");
+    ////    LEPS Detectors
+    analysisManager->CreateNtupleIColumn("LEPS1_trig");
+    analysisManager->CreateNtupleIColumn("LEPS2_trig");
     
-    analysisManager->CreateNtupleDColumn(0, "TIARAE");
-    analysisManager->CreateNtupleDColumn(0, "Theta");
-    analysisManager->CreateNtupleDColumn(0, "Phi");
+    /*
+    analysisManager->CreateNtupleIColumn(0, "LEPS3_trig");
+    analysisManager->CreateNtupleIColumn(0, "LEPS4_trig");
+    analysisManager->CreateNtupleIColumn(0, "LEPS5_trig");
+    analysisManager->CreateNtupleIColumn(0, "LEPS6_trig");
+    */
+    
+    /*
+    analysisManager->CreateNtupleIColumn(0, "LEPS1_CrystalNo");
+    analysisManager->CreateNtupleIColumn(0, "LEPS2_CrystalNo");
+    analysisManager->CreateNtupleIColumn(0, "LEPS3_CrystalNo");
+    analysisManager->CreateNtupleIColumn(0, "LEPS4_CrystalNo");
+    analysisManager->CreateNtupleIColumn(0, "LEPS5_CrystalNo");
+    analysisManager->CreateNtupleIColumn(0, "LEPS6_CrystalNo");
+    */
+    
+    analysisManager->CreateNtupleDColumn("LEPS1_Energy");
+    analysisManager->CreateNtupleDColumn("LEPS2_Energy");
+    //analysisManager->CreateNtupleDColumn(0, "LEPS3_Energy");
+
+    /*
+    analysisManager->CreateNtupleDColumn(0, "LEPS3_Energy");
+    analysisManager->CreateNtupleDColumn(0, "LEPS4_Energy");
+    analysisManager->CreateNtupleDColumn(0, "LEPS5_Energy");
+    analysisManager->CreateNtupleDColumn(0, "LEPS6_Energy");
+    */
+
+    ////    TIARA Detectors
+    //analysisManager->CreateNtupleIColumn(0, "TIARANo");
+    //analysisManager->CreateNtupleIColumn(0, "TIARA_RowNo");
+    //analysisManager->CreateNtupleIColumn(0, "TIARA_SectorNo");
+    
+    //analysisManager->CreateNtupleDColumn(0, "TIARAE");
+    //analysisManager->CreateNtupleDColumn(0, "Theta");
+    //analysisManager->CreateNtupleDColumn(0, "Phi");
     
     //analysisManager->CreateNtupleDColumn("TIARANo[2]");
     //analysisManager->CreateNtupleDColumn("TIARA_RowNo[2]");
@@ -171,6 +202,7 @@ RunAction::RunAction()
     ////////////////////////////////////////////////////////////
     
     // Creating ntuple
+    
     analysisManager->CreateNtuple("GeometryAnalysisTree", "K600 Spectrometer - GeometryAnalysis");
     
     ////    TIARA Detectors
