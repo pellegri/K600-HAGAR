@@ -268,6 +268,36 @@ private:
     //  CLOVER HPGe Crystals
     G4VPhysicalVolume*  PhysiCLOVER_HPGeCrystal;
     
+    
+    /////////////////////////////////////
+    //          LEPS DETECTORS
+    /////////////////////////////////////
+    
+    G4bool              LEPS_AllPresent_Override;
+    G4bool              LEPS_AllAbsent_Override;
+    G4bool              LEPS_Presence[numberOf_LEPS];
+    G4double            LEPS_Distance[numberOf_LEPS];
+    G4RotationMatrix    LEPS_rotm[numberOf_LEPS];
+    G4double            LEPS_phi[numberOf_LEPS];
+    G4double            LEPS_theta[numberOf_LEPS];
+    
+    G4Transform3D       LEPS_transform[numberOf_LEPS];
+    G4ThreeVector       LEPS_position[numberOf_LEPS];
+    
+    G4Transform3D       LEPS_InternalVacuum_transform[numberOf_LEPS];
+    G4ThreeVector       LEPS_InternalVacuum_position[numberOf_LEPS];
+    
+    G4Transform3D       LEPS_Window_transform[numberOf_LEPS];
+    G4ThreeVector       LEPS_Window_position[numberOf_LEPS];
+    
+    //      LEPS HPGe Crystals
+    G4VPhysicalVolume*  Physical_LEPS_HPGeCrystal;
+    G4LogicalVolume*    Logic_LEPS_HPGeCrystal[4];
+    G4Transform3D       LEPS_HPGeCrystal_transform[4];
+    G4RotationMatrix    LEPS_HPGeCrystal_rotm[4];
+
+    
+    
     ///////////////////////////////////////////////////////////////
     //          CLOVER - BGO Shield   (Manufacturer: Cyberstar)
     ///////////////////////////////////////////////////////////////
