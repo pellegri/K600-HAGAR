@@ -111,10 +111,10 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
             TIARA_RowNo = (channelID - (TIARANo*128))/8;
             TIARA_SectorNo = (channelID - (TIARANo*128))%8;
             
-            TIARA_AA_ITS = interactiontime/TIARA_SamplingTime;
+            iTS = interactiontime/TIARA_SamplingTime;
             edepTIARA_AA = aStep->GetTotalEnergyDeposit()/MeV;
             
-            if(fEventAction->GetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 0, TIARA_AA_ITS)==0)
+            if(fEventAction->GetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 0, iTS)==0)
             {
                 worldPosition = preStepPoint->GetPosition();
                 
@@ -141,18 +141,14 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
                     if(xPosW>0 && yPosW<0) phi = phi + 360.; // deg
                 }
                 
-                fEventAction->SetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 1, TIARA_AA_ITS, theta);
-                fEventAction->SetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 2, TIARA_AA_ITS, phi);
+                fEventAction->SetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 1, iTS, theta);
+                fEventAction->SetVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 2, iTS, phi);
                 
             }
             
-            fEventAction->FillVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 0, TIARA_AA_ITS, edepTIARA_AA);
+            fEventAction->FillVar_TIARA_AA(TIARANo, TIARA_RowNo, TIARA_SectorNo, 0, iTS, edepTIARA_AA);
         }
     }
-    
-    ////////////////////////////////////////////////
-    //              VDC DETECTORS
-    ////////////////////////////////////////////////
     
     ////////////////////////////////////////////////
     //              VDC DETECTORS
@@ -164,7 +160,7 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
         {
             WireChamberNo = volume->GetCopyNo();
             
-            VDC_ITS = interactiontime/PADDLE_SamplingTime;
+            iTS = interactiontime/PADDLE_SamplingTime;
             edepVDC = aStep->GetTotalEnergyDeposit()/keV;
             
             worldPosition = preStepPoint->GetPosition();
@@ -286,16 +282,16 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
             
             PADDLENo = channelID;
             
-            PADDLE_ITS = interactiontime/PADDLE_SamplingTime;
+            iTS = interactiontime/PADDLE_SamplingTime;
             edepPADDLE = aStep->GetTotalEnergyDeposit()/MeV;
             
             worldPosition = preStepPoint->GetPosition();
             localPosition = theTouchable->GetHistory()->GetTopTransform().TransformPoint(worldPosition);
             
-            fEventAction->AddEnergy_PADDLE( PADDLENo, PADDLE_ITS, edepPADDLE);
-            fEventAction->TagTOF_PADDLE(PADDLENo, PADDLE_ITS, interactiontime);
-            fEventAction->AddEWpositionX_PADDLE( PADDLENo, PADDLE_ITS, edepPADDLE*localPosition.x());
-            fEventAction->AddEWpositionY_PADDLE( PADDLENo, PADDLE_ITS, edepPADDLE*localPosition.y());
+            fEventAction->AddEnergy_PADDLE( PADDLENo, iTS, edepPADDLE);
+            fEventAction->TagTOF_PADDLE(PADDLENo, iTS, interactiontime);
+            fEventAction->AddEWpositionX_PADDLE( PADDLENo, iTS, edepPADDLE*localPosition.x());
+            fEventAction->AddEWpositionY_PADDLE( PADDLENo, iTS, edepPADDLE*localPosition.y());
             
             //if(fEventAction->Get_PADDLE_Trig(i) == false) fEventAction->Set_PADDLE_Trig(i, true);
         }
@@ -323,10 +319,10 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
              G4cout << " "<< G4endl;
              */
             
-            CLOVER_HPGeCrystal_ITS = interactiontime/CLOVER_SamplingTime;
+            iTS = interactiontime/CLOVER_SamplingTime;
             edepCLOVER_HPGeCrystal = aStep->GetTotalEnergyDeposit()/keV;
             
-            fEventAction->AddEnergyCLOVER_HPGeCrystal(CLOVERNo, CLOVER_HPGeCrystalNo, CLOVER_HPGeCrystal_ITS, edepCLOVER_HPGeCrystal);
+            fEventAction->AddEnergyCLOVER_HPGeCrystal(CLOVERNo, CLOVER_HPGeCrystalNo, iTS, edepCLOVER_HPGeCrystal);
         }
     }
     
@@ -339,16 +335,35 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
      {
      if ( volume == fDetConstruction->GetVolume_CLOVER_Shield_BGOCrystal(i, l) && interactiontime <     CLOVER_Shield_BGO_TotalSampledTime )
      {
-     CLOVER_BGO_ITS = interactiontime/CLOVER_Shield_BGO_SamplingTime;
+     iTS = interactiontime/CLOVER_Shield_BGO_SamplingTime;
      edepCLOVER_BGOCrystal = aStep->GetTotalEnergyDeposit()/keV;
      
-     fEventAction->AddEnergyBGODetectors(i, l, CLOVER_BGO_ITS, edepCLOVER_BGOCrystal);
+     fEventAction->AddEnergyBGODetectors(i, l, iTS, edepCLOVER_BGOCrystal);
      //G4cout << "Here is the edepCLOVER_BGOCrystal    "<< edepBGO << G4endl;
      }
      }
      }
      }
      */
+    
+    ////////////////////////////////////////////////
+    //              LEPS DETECTOR ARRAY
+    ////////////////////////////////////////////////
+    
+    
+    if((interactiontime < LEPS_TotalSampledTime) && (volumeName == "LEPSHPGeCrystal"))
+    {
+        channelID = volume->GetCopyNo();
+        
+        LEPSNo = channelID/4;
+        LEPS_HPGeCrystalNo = channelID%4;
+        
+        iTS = interactiontime/LEPS_SamplingTime;
+        edepLEPS_HPGeCrystal = aStep->GetTotalEnergyDeposit()/keV;
+        
+        fEventAction->AddEnergyLEPS_HPGeCrystals(LEPSNo, LEPS_HPGeCrystalNo, iTS, edepLEPS_HPGeCrystal);
+        
+    }
     
     
     //if (volumeName=="TIARA_Assembly" && !fEventAction->GA_GetLineOfSight() )   G4cout << "Here is the TIARA_Assembly Hit!" << G4endl;
