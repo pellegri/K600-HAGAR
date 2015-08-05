@@ -70,18 +70,18 @@ fParticleGun(0)
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("He3");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("mu-");
-    //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
+    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("e-");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("alpha");
     //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("proton");
-    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("geantino");
-    
+    //G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("geantino");
+
     fParticleGun->SetParticleDefinition(particleDefinition);
     
     //fParticleGun->SetParticleEnergy(0.*MeV);
     //fParticleGun->SetParticleEnergy(0.100*MeV);
     //fParticleGun->SetParticleEnergy(1.332*MeV);
-    fParticleGun->SetParticleEnergy(7.0*MeV);
+    fParticleGun->SetParticleEnergy(82.0*keV);
     
     //fParticleGun->SetParticleEnergy(200.*MeV);
     //fParticleGun->SetParticleEnergy(22.5*MeV);
@@ -95,7 +95,7 @@ fParticleGun(0)
     //fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,0.));
     //fParticleGun->SetParticlePosition(G4ThreeVector(0.,57.5*mm,2.10*m));
     
-    //fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,1.));
+    fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,0.));
     //fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-1.*mm));
     //fParticleGun->SetParticlePosition(G4ThreeVector(2000.*mm,0.,3000.0*mm));
     
@@ -130,7 +130,16 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
+    ////    Different particles for Visualisation
+    /*
+    double test = G4UniformRand();
     
+    G4ParticleDefinition* particleDefinitionNew;
+    if(test<0.3) particleDefinitionNew = G4ParticleTable::GetParticleTable()->FindParticle("alpha");
+    if(test>=0.3 && test<0.6) particleDefinitionNew = G4ParticleTable::GetParticleTable()->FindParticle("e-");
+    if(test>=0.6 && test<=1.0) particleDefinitionNew = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
+    fParticleGun->SetParticleDefinition(particleDefinitionNew);
+    */
     
     ///////////////////////////////////////////////////////////////
     //          To generate radioactive decay - enabled particles
@@ -160,19 +169,19 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     ///////////////////////////////////////////////////////////
     //       Initial Position Distribution of Particle
     ///////////////////////////////////////////////////////////
-    
+    /*
     G4double targetZoffset = -1000.0; // um
     G4double targetThickness = 2.42; // um
     G4double InitialPosition = G4RandFlat::shoot(-(targetThickness/2) + targetZoffset, (targetThickness/2) + targetZoffset); // um
-    
+    */
     
     ///////////////////////////////////////////////////////////
     //       Initial Position Distribution of Particle
     ///////////////////////////////////////////////////////////
     
     G4double theta = 2*M_PI*G4UniformRand();
-    //G4double mz = -1.0 + 2*G4UniformRand();
-    G4double mz = -1.0 + G4UniformRand();
+    G4double mz = -1.0 + 2*G4UniformRand();
+    //G4double mz = -1.0 + G4UniformRand();
     
     G4double a = sqrt(1-(mz*mz));
     
