@@ -49,11 +49,11 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////     GEOMETRY ANALYSIS
-const G4bool        GA_MODE = true;
+const G4bool        GA_MODE = false;
 const G4bool        GA_LineOfSightMODE = true;
 const G4int         GA_numberOfEvents = 40000000;
 
-const G4bool        GA_GenInputVar = true;
+const G4bool        GA_GenInputVar = false;
 const G4bool        GA_GenAngDist = false;
 const G4int         GA_GenAngDist_buffer = 5000;
 
@@ -94,6 +94,13 @@ const G4int         CLOVER_Shield_BGO_TotalTimeSamples = CLOVER_TotalTimeSamples
 const G4double      CLOVER_Shield_BGO_TotalSampledTime = CLOVER_Shield_BGO_SamplingTime * CLOVER_Shield_BGO_TotalTimeSamples; // ns
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+///////////////     LEPS Detectors - PIXIE16 Sampling     ///////////////////
+const G4bool        Activate_LEPS_ADDBACK = true;
+
+const G4double      LEPS_SamplingTime = 10; // ns
+const G4int         LEPS_TotalTimeSamples = 10; //
+const G4double      LEPS_TotalSampledTime = LEPS_SamplingTime * LEPS_TotalTimeSamples; // ns
+
 ///////////////     VDC Signal Wires - Energy Threshold     ///////////////////
 const G4double      VDC1_U_WIRE_ThresholdEnergy = 10.;   // keV
 const G4double      VDC1_X_WIRE_ThresholdEnergy = 10.;   // keV
@@ -109,6 +116,9 @@ const G4double      CLOVER_HPGeCrystal_ThresholdEnergy = 6.;   // keV
 
 ///////////////     CLOVER BGO Anti-Compton Shield - Energy Threshold     ///////////////////
 const G4double      CLOVER_BGO_ThresholdEnergy = 5.;  //keV
+
+///////////////     LEPS - Energy Threshold     ///////////////////
+const G4double      LEPS_HPGeCrystal_ThresholdEnergy = 6.;   // keV
 
 ///////////////     PADDLE, Plastic Scintillators - Energy Threshold     ///////////////////
 const G4double      PADDLE_ThresholdEnergy = 0.5;  //  MeV
@@ -185,6 +195,21 @@ public:
     G4double    CLOVER_BGO_EDep[8][16][CLOVER_Shield_BGO_TotalTimeSamples+CLOVER_ComptonSupression_TimeWindow];
     
     void AddEnergyBGODetectors(G4int i, G4int j, G4int k, G4double a)	{CLOVER_BGO_EDep[i][j][k] += a; };
+    
+    
+    
+    ////////////////////////
+    //      LEPS
+    G4double GainLEPS;
+    G4double OffsetLEPS;
+    // Previous versions, moved declaration to EventAction.cc constructor
+    //G4double GainLEPS = 1.0;
+    //G4double OffsetLEPS = 0.0;
+    
+    G4double    LEPS_HPGeCrystal_EDep[6][4][LEPS_TotalTimeSamples];
+    G4double    LEPS_EDep[6][LEPS_TotalTimeSamples];
+    
+    void AddEnergyLEPS_HPGeCrystals(G4int i, G4int j, G4int k, G4double a)	{LEPS_HPGeCrystal_EDep[i][j][k] += a; };
     
     
     /////////////////////////////////////////
