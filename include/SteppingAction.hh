@@ -73,12 +73,10 @@ private:
     
     ////    PADDLE DETECTOR - Plastic Scintillator
     G4double    edepPADDLE;
-    G4int       PADDLE_ITS;  // Interaction Time Sample for the Neutron Wall Plastic Scintillators
     G4int       PADDLENo;
     
     ////    VDC DETECTOR - Plastic Scintillator
     G4double    edepVDC;
-    G4int       VDC_ITS;  // Interaction Time Sample for the Neutron Wall Plastic Scintillators
     G4int       WireChamberNo;
     G4int       hit_StoredChannelNo;
     
@@ -96,24 +94,30 @@ private:
     
     ////    TIARA DETECTOR
     G4double    edepTIARA_AA;
-    G4int       TIARA_AA_ITS;             // Interaction Time Sample for the TIARA Detectors
     G4int       TIARANo;
     G4int       TIARA_RowNo;
     G4int       TIARA_SectorNo;
     
     ////    CLOVER DETECTOR
     G4double    edepCLOVER_HPGeCrystal;
-    G4int       CLOVER_HPGeCrystal_ITS;   // Interaction Time Sample for the CLOVER Detectors
     G4int       CLOVERNo;
     G4int       CLOVER_HPGeCrystalNo;
     
     ////    CLOVER BGO-Crystal, Compton Supression Shield
     G4double    edepCLOVER_BGOCrystal;
-    G4int       CLOVER_BGO_ITS; // Interaction Time Sample for the BGO Crystals within the CLOVER Shield
     
+    ////    LEPS DETECTOR
+    G4double    edepLEPS_HPGeCrystal;
+    G4int       LEPSNo;
+    G4int       LEPS_HPGeCrystalNo;
+    
+    
+    ////    GENERAL
     G4double    interactiontime;
+    G4int       iTS; // Interaction Time Sample
     G4int       channelID;
     G4String    volumeName;
+
     
     
     //////////////////////////////////
