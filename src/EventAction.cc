@@ -57,7 +57,16 @@ EventAction::EventAction()
 fEnergyAbs(0.),
 fEnergyGap(0.),
 fTrackLAbs(0.),
-fTrackLGap(0.)
+fTrackLGap(0.),
+/////
+GainTIARA(1.0),
+OffsetTIARA(0.0),
+GainCLOVER(1.0),
+OffsetCLOVER(0.0),
+GainPADDLE(0),
+OffsetPADDLE(0),
+GainLEPS(1.0),
+OffsetLEPS(0.0)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -138,6 +147,20 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
             }
         }
     }
+    
+    for(G4int i=0; i<6; i++)
+    {
+        for(G4int k=0; k<LEPS_TotalTimeSamples; k++)
+        {
+            LEPS_EDep[i][k] = 0.;
+
+            for(G4int j=0; j<4; j++)
+            {
+                LEPS_HPGeCrystal_EDep[i][j][k] = 0;
+            }
+        }
+    }
+    
     
     for(G4int i=0; i<5; i++)
     {
@@ -364,6 +387,60 @@ void EventAction::EndOfEventAction(const G4Event* event)
         }
     }
     
+    
+    
+    ////////////////////////////////////////////////////
+    //
+    //              LEPS DETECTOR ARRAY
+    //
+    ////////////////////////////////////////////////////
+    
+    GainLEPS = 1.0;
+    OffsetLEPS = 0.0;
+    bool eventTriggered_LEPS = false;
+    
+    for(G4int i=0; i<6; i++)
+    {
+        for(G4int k=0; k<LEPS_TotalTimeSamples; k++)
+        {
+            for(G4int j=0; j<4; j++)
+            {
+                if(G4RandGauss::shoot(LEPS_HPGeCrystal_EDep[i][j][k], 0.7) >= LEPS_HPGeCrystal_ThresholdEnergy)
+                {
+                    LEPS_HPGeCrystal_EDep[i][j][k] = abs(G4RandGauss::shoot(LEPS_HPGeCrystal_EDep[i][j][k], 1.7));
+                    
+                    //      ADDBACK
+                    if(Activate_LEPS_ADDBACK)
+                    {
+                        LEPS_EDep[i][k] += LEPS_HPGeCrystal_EDep[i][j][k];
+                    }
+                }
+            }
+            
+            if(Activate_LEPS_ADDBACK && LEPS_EDep[i][k] >= LEPS_HPGeCrystal_ThresholdEnergy)
+            {
+                analysisManager->FillNtupleIColumn(0, i, 1);
+                analysisManager->FillNtupleDColumn(0, i+2, GainLEPS*LEPS_EDep[i][k] + OffsetLEPS);
+                eventTriggered_LEPS = true;
+            }
+        }
+    }
+     
+    if(eventTriggered_LEPS) analysisManager->AddNtupleRow(0);
+    
+    
+    /*
+    //analysisManager->FillNtupleIColumn(0, 0, 100);
+    analysisManager->FillNtupleIColumn(0, 0, 50);
+    analysisManager->FillNtupleIColumn(0, 1, 50);
+
+    //analysisManager->FillNtupleDColumn(0, 0, 100.);
+    analysisManager->FillNtupleDColumn(0, 2, 50.);
+    analysisManager->FillNtupleDColumn(0, 3, 50.);
+
+    analysisManager->AddNtupleRow(0);
+    */
+
     
     
     ////////////////////////////////////////////////////////
