@@ -382,9 +382,23 @@ private:
     ////        STRUCTURES      ////
     ////////////////////////////////
     
-    /////////////////////////////////////
-    //  K600 BACTAR Target Chamber
-    G4bool      K600_BACTAR_Presence;
+    ////////////////////////////////////////////////
+    ////    New K600 Target Chamber - New scattering chamber, both sides on
+    G4bool      K600_BACTAR_sidesOn_Presence;
+    
+    ////////////////////////////////////////////////
+    ////    New K600 Target Chamber - New scattering chamber, both sides off
+    G4bool      K600_BACTAR_sidesOff_Presence;
+
+    ////////////////////////////////////////////////
+    ////    New K600 Target Chamber - New scattering chamber, beam left side side off
+    G4bool      K600_BACTAR_beamRightSideOff_Presence;
+
+    ////////////////////////////////////////////////
+    ////    New K600 Target Chamber - New scattering chamber, beam right side side off
+    G4bool      K600_BACTAR_beamLeftSideOff_Presence;
+
+    
     
     /////////////////////////////////////
     //  K600 Target
