@@ -107,7 +107,7 @@ G4ThreadLocal G4FieldManager* DetectorConstruction::fieldManagerMagneticField_K6
 
 DetectorConstruction::DetectorConstruction()
 : G4VUserDetectorConstruction(),
-fAbsorberPV(0), fGapPV(0), fCheckOverlaps(false), PhysiCLOVER_HPGeCrystal(0), PhysiCLOVER_Shield_BGOCrystal(0), PhysiCLOVER_Shield_PMT(0), PhysiTIARA_AA_RS(0), PhysiPADDLE(0), PhysiK600_Quadrupole(0), PhysiK600_Dipole1(0), PhysiK600_Dipole2(0), PhysiHAGAR_NaICrystal(0), PhysiHAGAR_Annulus(0), PhysiHAGAR_FrontDisc(0)
+fAbsorberPV(0), fGapPV(0), fCheckOverlaps(false), PhysiCLOVER_HPGeCrystal(0), PhysiCLOVER_Shield_BGOCrystal(0), PhysiCLOVER_Shield_PMT(0), PhysiTIARA_AA_RS(0), PhysiPADDLE(0), PhysiK600_Quadrupole(0), PhysiK600_Dipole1(0), PhysiK600_Dipole2(0), PhysiHAGAR_NaICrystal(0), PhysiHAGAR_Annulus(0), PhysiHAGAR_FrontDisc(0), Physical_LEPS_HPGeCrystal(0)
 {
     WorldSize = 15.*m;
 }
@@ -203,7 +203,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     ////    TIARA SETUP
     
     TIARA_AllPresent_Override = false;
-    TIARA_AllAbsent_Override = false;
+    TIARA_AllAbsent_Override = true;
     
     //offset_TIARA_BeamAxis = -131.0000; // mm
     offset_TIARA_BeamAxis = -131.3217600; // mm
@@ -374,6 +374,69 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         if(CLOVER_Shield_AllPresent_Override && CLOVER_Shield_AllAbsent_Override) CLOVER_Shield_Presence[i] = false;
     }
     
+    
+    
+    ////////////////////////////////
+    ////        LEPS SETUP
+    
+    LEPS_AllPresent_Override = false;
+    LEPS_AllAbsent_Override = false;
+    
+    
+    //  LEPS 1
+    LEPS_Presence[0] = true;
+    LEPS_Distance[0] = 4.5*cm;
+    LEPS_phi[0] = 0.*deg;
+    LEPS_theta[0] = 0.*deg;
+    LEPS_rotm[0].rotateX(180.*deg);
+    
+    //  LEPS 2
+    LEPS_Presence[1] = true;
+    LEPS_Distance[1] = 4.5*cm;
+    LEPS_phi[1] = 0.*deg;
+    LEPS_theta[1] = 90.*deg;
+    LEPS_rotm[1].rotateY(-90.*deg);
+    
+    //  LEPS 3
+    LEPS_Presence[2] = false;
+    LEPS_Distance[2] = 4.5*cm;
+    LEPS_phi[2] = 90.*deg;
+    LEPS_theta[2] = 90.*deg;
+    LEPS_rotm[2].rotateX(90.*deg);
+    
+    //  LEPS 4
+    LEPS_Presence[3] = false;
+    LEPS_Distance[3] = 4.5*cm;
+    LEPS_phi[3] = 180.*deg;
+    LEPS_theta[3] = 90*deg;
+    LEPS_rotm[3].rotateY(90.*deg);
+    
+    //  LEPS 5
+    LEPS_Presence[4] = false;
+    LEPS_Distance[4] = 4.5*cm;
+    LEPS_phi[4] = 270.*deg;
+    LEPS_theta[4] = 90*deg;
+    LEPS_rotm[4].rotateX(-90.*deg);
+    
+    
+    //  LEPS 6
+    LEPS_Presence[5] = false;
+    LEPS_Distance[5] = 4.5*cm;
+    LEPS_phi[5] = 0*deg;
+    LEPS_theta[5] = 180*deg;
+    LEPS_rotm[5].rotateY(0.*deg);
+    
+    
+    
+    for (G4int i=0; i<numberOf_LEPS; i++)
+    {
+        if( LEPS_AllPresent_Override == true ) LEPS_Presence[i] = true;
+        if( LEPS_AllAbsent_Override == true ) LEPS_Presence[i] = false;
+        if( LEPS_AllPresent_Override == true && LEPS_AllAbsent_Override == true ) LEPS_Presence[i] = false;
+    }
+
+    
+    
     ////////////////////////////////////////////
     ////                                    ////
     ////        K600 SPECTROMETER SETUP     ////
@@ -461,7 +524,8 @@ void DetectorConstruction::DefineMaterials()
     nistManager->FindOrBuildMaterial("G4_CARBON_DIOXIDE");
     nistManager->FindOrBuildMaterial("G4_SODIUM_IODIDE");
     nistManager->FindOrBuildMaterial("G4_LITHIUM_CARBONATE");
-    
+    nistManager->FindOrBuildMaterial("G4_Be");
+
     //  NIST Elementary Material Database - ELEMENTS
     nistManager->FindOrBuildElement("H");
     nistManager->FindOrBuildElement("C");
@@ -525,7 +589,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4Material* G4_CARBON_DIOXIDE_Material = G4Material::GetMaterial("G4_CARBON_DIOXIDE");
     G4Material* G4_SODIUM_IODIDE_Material = G4Material::GetMaterial("G4_SODIUM_IODIDE");
     G4Material* G4_LITHIUM_CARBONATE_Material = G4Material::GetMaterial("G4_LITHIUM_CARBONATE");
-    
+    G4Material* G4_Be_Material = G4Material::GetMaterial("G4_Be");
+
     ////    CLOVER Detector Shield, HEAVIMET Material
     G4Material* Heavimet_Material = new G4Material("Heavimet_Material",19.25*g/cm3, 5);
     Heavimet_Material->AddElement(Tungsten, 94.20*perCent);
@@ -619,6 +684,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         G4ThreeVector offset_BACTAR = G4ThreeVector(0*cm, 0*cm, 0*cm);
         
         CADMesh * mesh_BACTAR = new CADMesh("../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR-stationary.ply", "PLY", mm, offset_BACTAR, false);
+        //CADMesh * mesh_BACTAR = new CADMesh("../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR_sideoff.ply", "PLY", mm, offset_BACTAR, false);
+
         
         G4VSolid * SolidBACTAR = mesh_BACTAR->TessellatedMesh();
         
@@ -2331,6 +2398,124 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     }
     
     
+    ////////////////////////////////////////
+    ////        LEPS DEFINITION         ////
+    ////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////
+    //              LEPS Internal Vacuum - CADMesh
+    //////////////////////////////////////////////////////////
+    
+    G4Tubs* Solid_LEPS_InternalVacuum = new G4Tubs("Solid_LEPSInternalVacuum", 0.*mm, 38.4*mm, 45.0*mm, 0.*deg, 360*deg);
+    G4LogicalVolume* Logic_LEPS_InternalVacuum[numberOf_LEPS];
+    
+    for(G4int i=0; i<numberOf_LEPS; i++)
+    {
+        Logic_LEPS_InternalVacuum[i] = new G4LogicalVolume(Solid_LEPS_InternalVacuum, G4_Galactic_Material, "LogicLEPSInternalVacuum", 0, 0, 0);
+    }
+    
+    ///////////////////////////////////////////////////////
+    //              LEPS Encasement - CADMesh
+    ///////////////////////////////////////////////////////
+    
+    G4Tubs* Solid_LEPS_Encasement = new G4Tubs("Solid_LEPSEncasement", 38.5*mm, 40.0*mm, (90./2)*mm, 0.*deg, 360*deg);
+    
+    G4LogicalVolume* Logic_LEPS_Encasement = new G4LogicalVolume(Solid_LEPS_Encasement, G4_Al_Material, "LogicLEPSLEPSEncasement", 0, 0, 0);
+    
+    
+    ///////////////////////////////////////////////////////
+    //              LEPS Beryllium Window - CADMesh
+    ///////////////////////////////////////////////////////
+    
+    G4Tubs* Solid_LEPS_Window = new G4Tubs("Solid_LEPSWindow", 0.*mm, 38.5*mm, (0.3/2)*mm, 0.*deg, 360*deg);
+    
+    G4LogicalVolume* Logic_LEPS_Window = new G4LogicalVolume(Solid_LEPS_Window, G4_Be_Material, "Logic_LEPS_Window", 0, 0, 0);
+    
+    
+    //////////////////////////////////////////////////////////
+    //              LEPS HPGeCrystals - CADMesh
+    //////////////////////////////////////////////////////////
+    
+    G4Tubs* Solid_HPGeCrystal = new G4Tubs("Solid_HPGeCrystal1", 0.*mm, 33.0*mm, 5.5*mm, 0.*deg, 90.*deg);
+    
+    G4LogicalVolume* Logic_LEPS_HPGeCrystal;
+    Logic_LEPS_HPGeCrystal = new G4LogicalVolume(Solid_HPGeCrystal, G4_Ge_Material,"LogicLEPSHPGeCrystal",0,0,0);
+    
+    LEPS_HPGeCrystal_rotm[0].rotateZ(0.*deg);
+    LEPS_HPGeCrystal_rotm[1].rotateZ(90.*deg);
+    LEPS_HPGeCrystal_rotm[2].rotateZ(180.*deg);
+    LEPS_HPGeCrystal_rotm[3].rotateZ(270.*deg);
+    
+    for(G4int i=0; i<4; i++)
+    {
+        LEPS_HPGeCrystal_transform[i] = G4Transform3D(LEPS_HPGeCrystal_rotm[i], G4ThreeVector(0,0,(29.0-0.5)*mm));
+    }
+    
+    ////////////////////////////////////////////////////
+    //               LEPS INITIALIZATION
+    ////////////////////////////////////////////////////
+    
+    
+    for(G4int i=0; i<numberOf_LEPS; i++)
+    {
+        LEPS_position[i] = (LEPS_Distance[i] + 4.5*cm)*G4ThreeVector( std::sin(LEPS_theta[i]) * std::cos(LEPS_phi[i]), std::sin(LEPS_theta[i]) * std::sin(LEPS_phi[i]), std::cos(LEPS_theta[i]));
+        
+        LEPS_transform[i] = G4Transform3D(LEPS_rotm[i],LEPS_position[i]);
+        
+        LEPS_InternalVacuum_position[i] = (LEPS_Distance[i]+ 4.5*cm + 0.5*mm)*G4ThreeVector( std::sin(LEPS_theta[i]) * std::cos(LEPS_phi[i]), std::sin(LEPS_theta[i]) * std::sin(LEPS_phi[i]), std::cos(LEPS_theta[i]));
+        LEPS_InternalVacuum_transform[i] = G4Transform3D(LEPS_rotm[i],LEPS_InternalVacuum_position[i]);
+        
+        LEPS_Window_position[i] = (LEPS_Distance[i] + 4.5*cm +(-45.0+0.15)*mm)*G4ThreeVector( std::sin(LEPS_theta[i]) * std::cos(LEPS_phi[i]), std::sin(LEPS_theta[i]) * std::sin(LEPS_phi[i]), std::cos(LEPS_theta[i]));
+        LEPS_Window_transform[i] = G4Transform3D(LEPS_rotm[i],LEPS_Window_position[i]);
+        
+        /////////////////////////////
+        //          LEPS
+        if(LEPS_Presence[i] == true)
+        {
+            
+            new G4PVPlacement(LEPS_transform[i],   // transformation matrix
+                              Logic_LEPS_Encasement,       // its logical volume
+                              "LEPSEncasement",       // its name
+                              LogicVacuumChamber,         // its mother  volume
+                              false,           // no boolean operations
+                              i,               // copy number
+                              fCheckOverlaps); // checking overlaps
+            
+            new G4PVPlacement(LEPS_Window_transform[i],   // transformation matrix
+                              Logic_LEPS_Window,       // its logical volume
+                              "LEPSWindow",       // its name
+                              LogicVacuumChamber,         // its mother  volume
+                              false,           // no boolean operations
+                              i,               // copy number
+                              fCheckOverlaps); // checking overlaps
+            
+            
+            
+            for (int j=0; j<4; j++)
+            {
+                Physical_LEPS_HPGeCrystal = new G4PVPlacement(LEPS_HPGeCrystal_transform[j],
+                                                              Logic_LEPS_HPGeCrystal,       // its logical volume
+                                                              "LEPSHPGeCrystal",       // its name
+                                                              Logic_LEPS_InternalVacuum[i],    // its mother  volume
+                                                              false,           // no boolean operations
+                                                              j + (i*4),               // copy number
+                                                              fCheckOverlaps); // checking overlaps
+                
+            }
+            
+            new G4PVPlacement(LEPS_InternalVacuum_transform[i],
+                              Logic_LEPS_InternalVacuum[i],
+                              "LEPSInternalVacuum",       // its name
+                              LogicVacuumChamber,         // its mother  volume
+                              false,           // no boolean operations
+                              i,               // copy number
+                              fCheckOverlaps); // checking overlaps
+            
+            
+        }
+        
+    }
+    
     
     
     //////////////////////////////////////////////////
@@ -2685,7 +2870,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     //TIARA_PCB_VisAtt->SetForceSolid(true);
     
     //  AA - RS
-    //G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(0., 0.2, 0.2));
+    //G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(0., 0.7, 0.7));
     G4VisAttributes* TIARA_AA_RS_VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 1.0));
     //TIARA_AA_RS_VisAtt->SetForceSolid(true);
     TIARA_AA_RS_VisAtt->SetForceLineSegmentsPerCircle(100);
