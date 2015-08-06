@@ -2522,6 +2522,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4Tubs* Solid_LEPS_InternalVacuum = new G4Tubs("Solid_LEPSInternalVacuum", 0.*mm, 38.4*mm, 45.0*mm, 0.*deg, 360*deg);
     G4LogicalVolume* Logic_LEPS_InternalVacuum[numberOf_LEPS];
     
+    G4LogicalVolume*    Logic_LEPS_HPGeCrystal[4];
+
     for(G4int i=0; i<numberOf_LEPS; i++)
     {
         Logic_LEPS_InternalVacuum[i] = new G4LogicalVolume(Solid_LEPS_InternalVacuum, G4_Galactic_Material, "LogicLEPSInternalVacuum", 0, 0, 0);
