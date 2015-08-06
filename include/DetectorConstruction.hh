@@ -99,7 +99,7 @@ const G4int     numberOf_PADDLE = 3;
 
 
 ///////////////     LEPS DETECTORS     ///////////////////
-const G4int     numberOf_LEPS = 8;
+const G4int     numberOf_LEPS = 6;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
