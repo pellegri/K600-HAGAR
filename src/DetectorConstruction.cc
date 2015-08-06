@@ -2522,8 +2522,6 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4Tubs* Solid_LEPS_InternalVacuum = new G4Tubs("Solid_LEPSInternalVacuum", 0.*mm, 38.4*mm, 45.0*mm, 0.*deg, 360*deg);
     G4LogicalVolume* Logic_LEPS_InternalVacuum[numberOf_LEPS];
     
-    G4LogicalVolume*    Logic_LEPS_HPGeCrystal[4];
-
     for(G4int i=0; i<numberOf_LEPS; i++)
     {
         Logic_LEPS_InternalVacuum[i] = new G4LogicalVolume(Solid_LEPS_InternalVacuum, G4_Galactic_Material, "LogicLEPSInternalVacuum", 0, 0, 0);
@@ -2553,8 +2551,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     G4Tubs* Solid_HPGeCrystal = new G4Tubs("Solid_HPGeCrystal1", 0.*mm, 33.0*mm, 5.5*mm, 0.*deg, 90.*deg);
     
-    G4LogicalVolume* Logic_LEPS_HPGeCrystal;
-    Logic_LEPS_HPGeCrystal = new G4LogicalVolume(Solid_HPGeCrystal, G4_Ge_Material,"LogicLEPSHPGeCrystal",0,0,0);
+    G4LogicalVolume* Logic_LEPS_HPGeCrystal = new G4LogicalVolume(Solid_HPGeCrystal, G4_Ge_Material,"LogicLEPSHPGeCrystal",0,0,0);
     
     LEPS_HPGeCrystal_rotm[0].rotateZ(0.*deg);
     LEPS_HPGeCrystal_rotm[1].rotateZ(90.*deg);
