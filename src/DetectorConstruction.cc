@@ -645,7 +645,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     
     ////    Variables for CADMesh
-    char    *meshPath;
+    char    meshPath[512];
     char    meshType[] = "PLY";
 
     
@@ -2603,7 +2603,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
             
             
             
-            for (int j=0; j<4; j++)
+            for(int j=0; j<4; j++)
             {
                 Physical_LEPS_HPGeCrystal = new G4PVPlacement(LEPS_HPGeCrystal_transform[j],
                                                               Logic_LEPS_HPGeCrystal,       // its logical volume
