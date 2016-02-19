@@ -205,6 +205,12 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
         }
     }
     
+    
+    
+    // HAGAR
+    HAGAR_EDep = 0.0;
+    
+    
     ////    Input Variables
     InputDist[0] = 0;
     InputDist[1] = 0;
@@ -440,6 +446,29 @@ void EventAction::EndOfEventAction(const G4Event* event)
 
     analysisManager->AddNtupleRow(0);
     */
+
+    
+    
+    ////////////////////////////////////////////////////
+    //
+    //              HAGAR DETECTOR
+    //
+    ////////////////////////////////////////////////////
+
+    bool eventTriggered_HAGAR = false;
+    
+    
+    if(HAGAR_EDep>0.0)
+    {
+        eventTriggered_HAGAR = true;
+
+        analysisManager->FillNtupleIColumn(0, 0, 1);
+                cout << "HAGAR_EDep   " << HAGAR_EDep <<  endl;
+        analysisManager->FillNtupleDColumn(0, 1, HAGAR_EDep);
+            
+    }
+    
+    if(eventTriggered_HAGAR) analysisManager->AddNtupleRow(0);
 
     
     

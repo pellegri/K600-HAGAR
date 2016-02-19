@@ -111,6 +111,8 @@ private:
     G4int       LEPSNo;
     G4int       LEPS_HPGeCrystalNo;
     
+    ////    HAGAR DETECTOR
+    G4double    edepHAGAR;
     
     ////    GENERAL
     G4double    interactiontime;

@@ -211,6 +211,16 @@ public:
     
     void AddEnergyLEPS_HPGeCrystals(G4int i, G4int j, G4int k, G4double a)	{LEPS_HPGeCrystal_EDep[i][j][k] += a; };
     
+
+    
+    ////////////////////////
+    //      HAGAR
+   
+    
+    G4double    HAGAR_EDep;
+    
+    void AddEnergyHAGAR(G4double a)	{HAGAR_EDep += a; };
+    
     
     /////////////////////////////////////////
     //          PADDLE DETECTORS

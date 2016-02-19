@@ -366,6 +366,21 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
     }
     
     
+    ////////////////////////////////////////////////
+    //              HAGAR DETECTOR
+    ////////////////////////////////////////////////
+    
+    
+    if(volumeName == "HAGAR_NaICrystal")
+    {
+        
+        edepHAGAR = aStep->GetTotalEnergyDeposit()/keV;
+        
+        fEventAction->AddEnergyHAGAR(edepHAGAR);
+        
+    }
+    
+    
     //if (volumeName=="TIARA_Assembly" && !fEventAction->GA_GetLineOfSight() )   G4cout << "Here is the TIARA_Assembly Hit!" << G4endl;
     
     ////////////////////////////////////////////

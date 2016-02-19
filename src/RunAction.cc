@@ -138,8 +138,8 @@ RunAction::RunAction()
     */
     
     ////    LEPS Detectors
-    analysisManager->CreateNtupleIColumn("LEPS1_trig");
-    analysisManager->CreateNtupleIColumn("LEPS2_trig");
+   // analysisManager->CreateNtupleIColumn("LEPS1_trig");
+  //  analysisManager->CreateNtupleIColumn("LEPS2_trig");
     
     /*
     analysisManager->CreateNtupleIColumn(0, "LEPS3_trig");
@@ -157,8 +157,8 @@ RunAction::RunAction()
     analysisManager->CreateNtupleIColumn(0, "LEPS6_CrystalNo");
     */
     
-    analysisManager->CreateNtupleDColumn("LEPS1_Energy");
-    analysisManager->CreateNtupleDColumn("LEPS2_Energy");
+   // analysisManager->CreateNtupleDColumn("LEPS1_Energy");
+ //   analysisManager->CreateNtupleDColumn("LEPS2_Energy");
     //analysisManager->CreateNtupleDColumn(0, "LEPS3_Energy");
 
     /*
@@ -190,7 +190,8 @@ RunAction::RunAction()
     // analysisManager->CreateNtupleDColumn(0, "pad2_tof");
      
      ////    HAGAR Detector
-     analysisManager->CreateNtupleDColumn("HAGAR_E");
+     analysisManager->CreateNtupleDColumn(0,"HAGAR_trig");
+     analysisManager->CreateNtupleDColumn(0,"HAGAR_E");
      //analysisManager->CreateNtupleDColumn("HAGAR_t");
      
     
