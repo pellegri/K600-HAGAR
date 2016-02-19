@@ -182,17 +182,17 @@ RunAction::RunAction()
     //analysisManager->CreateNtupleDColumn("TIARA_SectorNo[2]");
     //analysisManager->CreateNtupleDColumn(0, "TIARA_t[1]");
     
-    
+    /*
      ////    PADDLE Detectors
-    // analysisManager->CreateNtupleDColumn(0, "pad1_E");
-    // analysisManager->CreateNtupleDColumn(0, "pad1_tof");
-    // analysisManager->CreateNtupleDColumn(0, "pad2_E");
-    // analysisManager->CreateNtupleDColumn(0, "pad2_tof");
+     analysisManager->CreateNtupleDColumn(0, "pad1_E");
+     analysisManager->CreateNtupleDColumn(0, "pad1_tof");
+     analysisManager->CreateNtupleDColumn(0, "pad2_E");
+     analysisManager->CreateNtupleDColumn(0, "pad2_tof");
      
      ////    HAGAR Detector
      analysisManager->CreateNtupleDColumn("HAGAR_E");
      //analysisManager->CreateNtupleDColumn("HAGAR_t");
-     
+     */
     
     analysisManager->FinishNtuple(0);
     
