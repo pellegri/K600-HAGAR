@@ -79,7 +79,7 @@ RunAction::RunAction()
      analysisManager->CreateH1("CvsE_PADDLE1","PADDLE 1 - Counts versus Energy", 1000, 0., 100.);
      analysisManager->CreateH1("CvsE_PADDLE2","PADDLE 2 - Counts versus Energy", 1000, 0., 100.);
      analysisManager->CreateH1("CvsE_PADDLE3","PADDLE 3 - Counts versus Energy", 1000, 0., 100.);
-     
+    
      ////    CLOVER DETECTORS, Histograms 10-19
      analysisManager->CreateH1("CvsE_CLOVER1","CLOVER 1 - Counts versus Energy", 3000, 0., 3000.);
      analysisManager->CreateH1("CvsE_CLOVER2","CLOVER 2 - Counts versus Energy", 3000, 0., 3000.);
@@ -136,6 +136,35 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn(0, "U2_Xpos");
     analysisManager->CreateNtupleDColumn(0, "U2_Ypos");
     */
+    /*
+    ////    CLOVER Detectors
+    analysisManager->CreateNtupleIColumn(0, "CLOVER1_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER2_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER3_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER4_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER5_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER6_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER7_trig");
+    analysisManager->CreateNtupleIColumn(0, "CLOVER8_trig");
+    
+    analysisManager->CreateNtupleDColumn(0, "CLOVER1_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER2_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER3_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER4_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER5_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER6_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER7_Energy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER8_Energy");
+    
+    analysisManager->CreateNtupleDColumn(0, "CLOVER1_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER2_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER3_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER4_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER5_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER6_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER7_iEnergy");
+    analysisManager->CreateNtupleDColumn(0, "CLOVER8_iEnergy");
+*/
     
     ////    LEPS Detectors
    // analysisManager->CreateNtupleIColumn("LEPS1_trig");
@@ -194,6 +223,7 @@ RunAction::RunAction()
      analysisManager->CreateNtupleDColumn(0,"HAGAR_E");
      //analysisManager->CreateNtupleDColumn("HAGAR_t");
      
+  
     
     analysisManager->FinishNtuple(0);
     

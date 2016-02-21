@@ -262,13 +262,13 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     ////////////////////////////
     ////    HAGAR SETUP
     
-    //  HAGAR NaI Crystal (35.6/2+HAGAR_Positionfromtarget)
+    //  HAGAR NaI Crystal
     HAGAR_NaICrystal_Presence = true;
     G4double HAGAR_Positionfromtarget =20;
     HAGAR_NaICrystal_CentrePosition = G4ThreeVector(-(35.6/2+HAGAR_Positionfromtarget+5)*cm, 0.*cm, 0.*cm);
     HAGAR_rotm.rotateY(-90*deg);
     
-    //  HAGAR Annulus (61/2+HAGAR_Positionfromtarget)
+    //  HAGAR Annulus
     HAGAR_Annulus_Presence = true;
     HAGAR_Annulus_CentrePosition = G4ThreeVector(-(61/2+HAGAR_Positionfromtarget)*cm, 0.*cm, 0.*cm);
     
@@ -290,7 +290,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 1
     CLOVER_Presence[0] = true;
     CLOVER_Shield_Presence[0] = true;
-    CLOVER_Distance[0] = 10*cm;
+    CLOVER_Distance[0] = 15*cm;
     CLOVER_phi[0] = 90*deg;
     CLOVER_theta[0] = 135*deg;
     CLOVER_rotm[0].rotateX(45. *deg);
@@ -298,7 +298,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 2
     CLOVER_Presence[1] = true;
     CLOVER_Shield_Presence[1] = true;
-    CLOVER_Distance[1] = 10*cm;
+    CLOVER_Distance[1] = 15*cm;
     CLOVER_phi[1] = 0*deg;
     CLOVER_theta[1] = 135*deg;
     CLOVER_rotm[1].rotateY(-45.0 *deg);
@@ -306,7 +306,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 3
     CLOVER_Presence[2] = true;
     CLOVER_Shield_Presence[2] = true;
-    CLOVER_Distance[2] = 10*cm;
+    CLOVER_Distance[2] = 15*cm;
     CLOVER_phi[2] = 270*deg;
     CLOVER_theta[2] = 135*deg;
     CLOVER_rotm[2].rotateX(-45.0 *deg);
@@ -314,7 +314,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 4
     CLOVER_Presence[3] = true;
     CLOVER_Shield_Presence[3] = true;
-    CLOVER_Distance[3] = 10*cm;
+    CLOVER_Distance[3] = 15*cm;
     CLOVER_phi[3] = 180*deg;
     CLOVER_theta[3] = 135*deg;
     CLOVER_rotm[3].rotateY(45.0 *deg);
@@ -322,7 +322,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 5
     CLOVER_Presence[4] = true;
     CLOVER_Shield_Presence[4] = true;
-    CLOVER_Distance[4] = 10*cm;
+    CLOVER_Distance[4] = 15*cm;
     CLOVER_phi[4] = 45*deg;
     CLOVER_theta[4] = 90*deg;
     CLOVER_rotm[4].rotateY(90.0 *deg);
@@ -331,7 +331,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 6
     CLOVER_Presence[5] = true;
     CLOVER_Shield_Presence[5] = true;
-    CLOVER_Distance[5] = 10*cm;
+    CLOVER_Distance[5] = 15*cm;
     CLOVER_phi[5] = 0*deg;
     CLOVER_theta[5] = 90*deg;
     CLOVER_rotm[5].rotateY(-90.0 *deg);
@@ -339,7 +339,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 7
     CLOVER_Presence[6] = true;
     CLOVER_Shield_Presence[6] = true;
-    CLOVER_Distance[6] = 10*cm;
+    CLOVER_Distance[6] = 15*cm;
     CLOVER_phi[6] = 180*deg;
     CLOVER_theta[6] = 90*deg;
     CLOVER_rotm[6].rotateY(90.0 *deg);
@@ -347,7 +347,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 8
     CLOVER_Presence[7] = true;
     CLOVER_Shield_Presence[7] = true;
-    CLOVER_Distance[7] = 10*cm;
+    CLOVER_Distance[7] = 15*cm;
     CLOVER_phi[7] = 135*deg;
     CLOVER_theta[7] = 90*deg;
     CLOVER_rotm[7].rotateY(90.0 *deg);
@@ -355,9 +355,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     
     //  CLOVER 9
-    CLOVER_Presence[8] = true;
-    CLOVER_Shield_Presence[8] = true;
-    CLOVER_Distance[8] = 10*cm;
+    CLOVER_Presence[8] = false;
+    CLOVER_Shield_Presence[8] = false;
+    CLOVER_Distance[8] = 15*cm;
     CLOVER_phi[8] = -45*deg;
     CLOVER_theta[8] = 90*deg;
     CLOVER_rotm[8].rotateY(-90.0 *deg);
@@ -677,7 +677,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     G4ThreeVector positionVacuumChamber = G4ThreeVector(0,0,0);
     
-    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (50./2)*cm, (50./2)*cm, (50./2)*cm);
+    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (38./2)*cm, (38./2)*cm, (100./2)*cm);
     
     G4LogicalVolume* LogicVacuumChamber = new G4LogicalVolume(SolidVacuumChamber, G4_Galactic_Material,"VacuumChamber",0,0,0);
     
@@ -731,7 +731,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
                           G4ThreeVector(), // at (x,y,z)
                           LogicBACTAR,       // its logical volume
                           "BACTAR",       // its name
-                          LogicVacuumChamber,         // its mother  volume
+                          LogicVacuumChamber,         // its mother  volume LogicVacuumChamber
                           false,           // no boolean operations
                           0,               // copy number
                           fCheckOverlaps); // checking overlaps

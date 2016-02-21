@@ -341,6 +341,8 @@ void EventAction::EndOfEventAction(const G4Event* event)
     //                CLOVER DETECTOR ARRAY
     //
     ////////////////////////////////////////////////////////
+    bool eventTriggered_CLOVER = false;
+
     
     for(G4int i=0; i<9; i++)
     {
@@ -350,6 +352,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
             {
                 if(G4RandGauss::shoot(CLOVER_HPGeCrystal_EDep[i][j][k], 0.7) >= CLOVER_HPGeCrystal_ThresholdEnergy)
                 {
+                    eventTriggered_CLOVER = true;
                     CLOVER_HPGeCrystal_EDep[i][j][k] = G4RandGauss::shoot(CLOVER_HPGeCrystal_EDep[i][j][k], 1.7);
                     
                     if(Activate_CLOVER_ComptonSupression)
@@ -374,10 +377,13 @@ void EventAction::EndOfEventAction(const G4Event* event)
                         CLOVER_EDep[i][k] += CLOVER_HPGeCrystal_EDep[i][j][k];
                         
                         //      For each Clover
-                        //analysisManager->FillH1(i+10, GainCLOVER*CLOVER_EDep[i][k] + OffsetCLOVER);
+                       // analysisManager->FillH1(i+10, GainCLOVER*CLOVER_EDep[i][k] + OffsetCLOVER);
                         
                         //      For the Entire Clover Array
-                        //analysisManager->FillH1(19, GainCLOVER*CLOVER_EDep[i][k] +  OffsetCLOVER);
+                      //  analysisManager->FillH1(19, GainCLOVER*CLOVER_EDep[i][k] +  OffsetCLOVER);
+                        
+                        analysisManager->FillNtupleIColumn(0, i, 1);
+                        analysisManager->FillNtupleDColumn(0, 8+i, GainCLOVER*CLOVER_EDep[i][k] +  OffsetCLOVER);
                     }
                     
                     else if(CLOVER_HPGeCrystal_EDep[i][j][k] != 0)
@@ -386,13 +392,14 @@ void EventAction::EndOfEventAction(const G4Event* event)
                         //analysisManager->FillH1(i+10, GainCLOVER*CLOVER_HPGeCrystal_EDep[i][j][k] + OffsetCLOVER);
                         
                         //      For the Entire Clover Array
-                        //analysisManager->FillH1(19, GainCLOVER*CLOVER_HPGeCrystal_EDep[i][j][k] +  OffsetCLOVER);
+                      //  analysisManager->FillH1(19, GainCLOVER*CLOVER_HPGeCrystal_EDep[i][j][k] +  OffsetCLOVER);
                     }
                 }
             }
         }
     }
-    
+   if(eventTriggered_CLOVER) analysisManager->AddNtupleRow(0);
+
     
     
     ////////////////////////////////////////////////////
@@ -425,8 +432,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
             
             if(Activate_LEPS_ADDBACK && LEPS_EDep[i][k] >= LEPS_HPGeCrystal_ThresholdEnergy)
             {
-                analysisManager->FillNtupleIColumn(0, i, 1);
-                analysisManager->FillNtupleDColumn(0, i+2, GainLEPS*LEPS_EDep[i][k] + OffsetLEPS);
+              //  analysisManager->FillNtupleIColumn(0, i, 1);
+               // analysisManager->FillNtupleDColumn(0, i+2, GainLEPS*LEPS_EDep[i][k] + OffsetLEPS);
+                
                 eventTriggered_LEPS = true;
             }
         }

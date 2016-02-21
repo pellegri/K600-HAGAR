@@ -80,7 +80,7 @@ const G4double      PADDLE_TotalSampledTime = PADDLE_SamplingTime * PADDLE_Total
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ///////////////     CLOVER Detectors - PIXIE16 Sampling     ///////////////////
-const G4bool        Activate_CLOVER_ADDBACK = false;
+const G4bool        Activate_CLOVER_ADDBACK = true;
 const G4bool        Activate_CLOVER_ComptonSupression = false;
 
 const G4double      CLOVER_SamplingTime = 10; // ns
