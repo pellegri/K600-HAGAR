@@ -471,7 +471,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
         eventTriggered_HAGAR = true;
 
         analysisManager->FillNtupleIColumn(0, 0, 1);
-                cout << "HAGAR_EDep   " << HAGAR_EDep <<  endl;
+           //     cout << "HAGAR_EDep   " << HAGAR_EDep <<  endl;
         analysisManager->FillNtupleDColumn(0, 1, HAGAR_EDep);
             
     }
