@@ -701,19 +701,19 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     if(K600_BACTAR_sidesOn_Presence)
     {
-        sprintf(meshPath, "../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR_sidesOn.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/STRUCTURES/BACTAR/BACTAR_sidesOn.ply");
     }
     if(K600_BACTAR_sidesOff_Presence)
     {
-        sprintf(meshPath, "../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR_sidesOff.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/STRUCTURES/BACTAR/BACTAR_sidesOff.ply");
     }
     if(K600_BACTAR_beamRightSideOff_Presence)
     {
-        sprintf(meshPath, "../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR_beamRightSideOff.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/STRUCTURES/BACTAR/BACTAR_beamRightSideOff.ply");
     }
     if(K600_BACTAR_beamLeftSideOff_Presence)
     {
-        sprintf(meshPath, "../K600/Mesh-Models/STRUCTURES/BACTAR/BACTAR_beamLightSideOff.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/STRUCTURES/BACTAR/BACTAR_beamLightSideOff.ply");
     }
 
     
@@ -2144,7 +2144,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //////////////////////////////////////////////////////////
         //              CLOVER Internal Vacuum - CADMesh
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/CLOVER-InternalVacuum/CloverInternalVacuum.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/CLOVER-InternalVacuum/CloverInternalVacuum.ply");
 
         CADMesh * mesh_CLOVERInternalVacuum = new CADMesh(meshPath, meshType, mm, offset_CLOVERInternalVacuum, false);
         
@@ -2159,7 +2159,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         ///////////////////////////////////////////////////////
         //              CLOVER Encasement - CADMesh
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Clover-Encasement/CloverEncasement.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Clover-Encasement/CloverEncasement.ply");
 
         CADMesh * mesh_CLOVEREncasement = new CADMesh(meshPath, meshType, mm, offset_CLOVEREncasement, false);
         
@@ -2171,16 +2171,16 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //////////////////////////////////////////////////////////
         //              CLOVER HPGeCrystals - CADMesh
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal1.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal1.ply");
         CADMesh * mesh_CLOVERHPGeCrystal1 = new CADMesh(meshPath, meshType, mm, offset_CLOVERHPGeCrystal1, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal2.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal2.ply");
         CADMesh * mesh_CLOVERHPGeCrystal2 = new CADMesh(meshPath, meshType, mm, offset_CLOVERHPGeCrystal2, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal3.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal3.ply");
         CADMesh * mesh_CLOVERHPGeCrystal3 = new CADMesh(meshPath, meshType, mm, offset_CLOVERHPGeCrystal3, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal4.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/HPGe-Crystals/HPGe-Crystal4.ply");
         CADMesh * mesh_CLOVERHPGeCrystal4 = new CADMesh(meshPath, meshType, mm, offset_CLOVERHPGeCrystal4, false);
         
         G4VSolid * Solid_HPGeCrystal1 = mesh_CLOVERHPGeCrystal1->TessellatedMesh();
@@ -2218,7 +2218,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //              CLOVER Shield Body - CADMesh
         ///////////////////////////////////////////////////////
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/Body/Body.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/Body/Body.ply");
         CADMesh * mesh_CLOVER_Shield_Body = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_Body, false);
         
         G4VSolid * Solid_CLOVER_Shield_Body = mesh_CLOVER_Shield_Body->TessellatedMesh();
@@ -2229,7 +2229,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //              CLOVER Shield Heavimet - CADMesh
         ///////////////////////////////////////////////////////
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/Heavimet-Shield/HeavimetShield.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/Heavimet-Shield/HeavimetShield.ply");
         CADMesh * mesh_CLOVER_Shield_Heavimet = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_Heavimet, false);
         
         G4VSolid * Solid_CLOVER_Shield_Heavimet = mesh_CLOVER_Shield_Heavimet->TessellatedMesh();
@@ -2241,7 +2241,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         ///////////////////////////////////////////////////////
         
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMT-Connectors/PMT-ConnecterArray.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMT-Connectors/PMT-ConnecterArray.ply");
         CADMesh * mesh_CLOVER_Shield_PMTConArray = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMTConArray, false);
         
         G4VSolid * Solid_CLOVER_Shield_PMTConArray = mesh_CLOVER_Shield_PMTConArray->TessellatedMesh();
@@ -2253,52 +2253,52 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //      CLOVER Shield BGO Crystals - CADMesh
         ///////////////////////////////////////////////////////
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal1.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal1.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal1 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal2.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal2.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal2 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal3.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal3.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal3 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal4.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal4.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal4 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal5.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal5.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal5 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal6.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal6.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal6 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal7.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal7.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal7 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal8.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal8.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal8 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal9.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal9.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal9 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal10.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal10.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal10 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal11.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal11.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal11 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal12.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal12.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal12 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal13.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal13.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal13 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal14.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal14.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal14 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal15.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal15.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal15 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal16.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/BGO-Crystals/BGO-Crystal16.ply");
         CADMesh * mesh_CLOVER_Shield_BGOCrystal16 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_BGOCrystals, false);
         
         G4VSolid * Solid_CLOVER_Shield_BGOCrystal[16];
@@ -2330,52 +2330,52 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         //      CLOVER Shield PMT's
         ////////////////////////////////////
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT1.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT1.ply");
         CADMesh * mesh_CLOVER_Shield_PMT1 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT2.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT2.ply");
         CADMesh * mesh_CLOVER_Shield_PMT2 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT3.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT3.ply");
         CADMesh * mesh_CLOVER_Shield_PMT3 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT4.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT4.ply");
         CADMesh * mesh_CLOVER_Shield_PMT4 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT5.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT5.ply");
         CADMesh * mesh_CLOVER_Shield_PMT5 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT6.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT6.ply");
         CADMesh * mesh_CLOVER_Shield_PMT6 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT7.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT7.ply");
         CADMesh * mesh_CLOVER_Shield_PMT7 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT8.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT8.ply");
         CADMesh * mesh_CLOVER_Shield_PMT8 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT9.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT9.ply");
         CADMesh * mesh_CLOVER_Shield_PMT9 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT10.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT10.ply");
         CADMesh * mesh_CLOVER_Shield_PMT10 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT11.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT11.ply");
         CADMesh * mesh_CLOVER_Shield_PMT11 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT12.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT12.ply");
         CADMesh * mesh_CLOVER_Shield_PMT12 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT13.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT13.ply");
         CADMesh * mesh_CLOVER_Shield_PMT13 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT14.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT14.ply");
         CADMesh * mesh_CLOVER_Shield_PMT14 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT15.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT15.ply");
         CADMesh * mesh_CLOVER_Shield_PMT15 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
-        sprintf(meshPath, "../K600/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT16.ply");
+        sprintf(meshPath, "../K600-HAGAR/Mesh-Models/DETECTORS/CLOVER/Shield/PMTs/PMT16.ply");
         CADMesh * mesh_CLOVER_Shield_PMT16 = new CADMesh(meshPath, meshType, mm, offset_CLOVER_Shield_PMT, false);
         
         
@@ -2685,7 +2685,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
             
             G4double z_Q_Offset = 4.4*mm+ 100*cm;
             
-            G4MagneticField* PurgMagField = new MagneticFieldMapping("../K600/MagneticFieldMaps/Quadrupole_MagneticFieldMap.TABLE", z_Q_Offset);
+            G4MagneticField* PurgMagField = new MagneticFieldMapping("../K600-HAGAR/MagneticFieldMaps/Quadrupole_MagneticFieldMap.TABLE", z_Q_Offset);
             fEquationMagneticField_K600_Q = new G4Mag_UsualEqRhs(PurgMagField);
             
             fieldManagerMagneticField_K600_Q = new G4FieldManager(PurgMagField);
