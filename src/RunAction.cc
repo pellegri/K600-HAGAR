@@ -219,7 +219,7 @@ RunAction::RunAction()
     // analysisManager->CreateNtupleDColumn(0, "pad2_tof");
      
      ////    HAGAR Detector
-     analysisManager->CreateNtupleDColumn(0,"HAGAR_trig");
+     analysisManager->CreateNtupleIColumn(0,"HAGAR_trig");
      analysisManager->CreateNtupleDColumn(0,"HAGAR_E");
      //analysisManager->CreateNtupleDColumn("HAGAR_t");
      
