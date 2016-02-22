@@ -264,7 +264,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     //  HAGAR NaI Crystal
     HAGAR_NaICrystal_Presence = true;
-    G4double HAGAR_Positionfromtarget =20;
+    G4double HAGAR_Positionfromtarget =17;
     HAGAR_NaICrystal_CentrePosition = G4ThreeVector(-(35.6/2+HAGAR_Positionfromtarget+5)*cm, 0.*cm, 0.*cm);
     HAGAR_rotm.rotateY(-90*deg);
     
@@ -677,7 +677,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     G4ThreeVector positionVacuumChamber = G4ThreeVector(0,0,0);
     
-    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (38./2)*cm, (38./2)*cm, (100./2)*cm);
+    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (34./2)*cm, (36./2)*cm, (100./2)*cm);
     
     G4LogicalVolume* LogicVacuumChamber = new G4LogicalVolume(SolidVacuumChamber, G4_Galactic_Material,"VacuumChamber",0,0,0);
     
