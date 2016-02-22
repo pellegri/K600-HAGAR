@@ -136,7 +136,7 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn(0, "U2_Xpos");
     analysisManager->CreateNtupleDColumn(0, "U2_Ypos");
     */
-    /*
+    
     ////    CLOVER Detectors
     analysisManager->CreateNtupleIColumn(0, "CLOVER1_trig");
     analysisManager->CreateNtupleIColumn(0, "CLOVER2_trig");
@@ -155,7 +155,10 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn(0, "CLOVER6_Energy");
     analysisManager->CreateNtupleDColumn(0, "CLOVER7_Energy");
     analysisManager->CreateNtupleDColumn(0, "CLOVER8_Energy");
-    
+
+    analysisManager->CreateNtupleDColumn(0, "CLOVERAll_Energy");
+
+   /* 
     analysisManager->CreateNtupleDColumn(0, "CLOVER1_iEnergy");
     analysisManager->CreateNtupleDColumn(0, "CLOVER2_iEnergy");
     analysisManager->CreateNtupleDColumn(0, "CLOVER3_iEnergy");
@@ -219,8 +222,8 @@ RunAction::RunAction()
     // analysisManager->CreateNtupleDColumn(0, "pad2_tof");
      
      ////    HAGAR Detector
-     analysisManager->CreateNtupleIColumn(0,"HAGAR_trig");
-     analysisManager->CreateNtupleDColumn(0,"HAGAR_E");
+     //analysisManager->CreateNtupleIColumn(0,"HAGAR_trig");
+    // analysisManager->CreateNtupleDColumn(0,"HAGAR_E");
      //analysisManager->CreateNtupleDColumn("HAGAR_t");
      
   

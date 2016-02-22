@@ -263,13 +263,13 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     ////    HAGAR SETUP
     
     //  HAGAR NaI Crystal
-    HAGAR_NaICrystal_Presence = true;
+    HAGAR_NaICrystal_Presence = false;
     G4double HAGAR_Positionfromtarget =17;
     HAGAR_NaICrystal_CentrePosition = G4ThreeVector(-(35.6/2+HAGAR_Positionfromtarget+5)*cm, 0.*cm, 0.*cm);
     HAGAR_rotm.rotateY(-90*deg);
     
     //  HAGAR Annulus
-    HAGAR_Annulus_Presence = true;
+    HAGAR_Annulus_Presence = false;
     HAGAR_Annulus_CentrePosition = G4ThreeVector(-(61/2+HAGAR_Positionfromtarget)*cm, 0.*cm, 0.*cm);
     
     //  HAGAR Front
@@ -281,7 +281,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     ////    CLOVER SETUP
     
     CLOVER_AllPresent_Override = false;
-    CLOVER_AllAbsent_Override = true;
+    CLOVER_AllAbsent_Override = false;
     
     CLOVER_Shield_AllPresent_Override = false;
     CLOVER_Shield_AllAbsent_Override = true;
@@ -289,40 +289,40 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     //  CLOVER 1
     CLOVER_Presence[0] = true;
-    CLOVER_Shield_Presence[0] = true;
-    CLOVER_Distance[0] = 15*cm;
+    CLOVER_Shield_Presence[0] = false;
+    CLOVER_Distance[0] = 17*cm;
     CLOVER_phi[0] = 90*deg;
     CLOVER_theta[0] = 135*deg;
     CLOVER_rotm[0].rotateX(45. *deg);
     
     //  CLOVER 2
     CLOVER_Presence[1] = true;
-    CLOVER_Shield_Presence[1] = true;
-    CLOVER_Distance[1] = 15*cm;
+    CLOVER_Shield_Presence[1] = false;
+    CLOVER_Distance[1] = 17*cm;
     CLOVER_phi[1] = 0*deg;
     CLOVER_theta[1] = 135*deg;
     CLOVER_rotm[1].rotateY(-45.0 *deg);
     
     //  CLOVER 3
     CLOVER_Presence[2] = true;
-    CLOVER_Shield_Presence[2] = true;
-    CLOVER_Distance[2] = 15*cm;
-    CLOVER_phi[2] = 270*deg;
-    CLOVER_theta[2] = 135*deg;
+    CLOVER_Shield_Presence[2] = false;
+    CLOVER_Distance[2] = 17*cm;
+    CLOVER_phi[2] = -45*deg;
+    CLOVER_theta[2] = 90*deg;
     CLOVER_rotm[2].rotateX(-45.0 *deg);
     
     //  CLOVER 4
     CLOVER_Presence[3] = true;
-    CLOVER_Shield_Presence[3] = true;
-    CLOVER_Distance[3] = 15*cm;
+    CLOVER_Shield_Presence[3] = false;
+    CLOVER_Distance[3] = 17*cm;
     CLOVER_phi[3] = 180*deg;
     CLOVER_theta[3] = 135*deg;
     CLOVER_rotm[3].rotateY(45.0 *deg);
     
     //  CLOVER 5
     CLOVER_Presence[4] = true;
-    CLOVER_Shield_Presence[4] = true;
-    CLOVER_Distance[4] = 15*cm;
+    CLOVER_Shield_Presence[4] = false;
+    CLOVER_Distance[4] = 17*cm;
     CLOVER_phi[4] = 45*deg;
     CLOVER_theta[4] = 90*deg;
     CLOVER_rotm[4].rotateY(90.0 *deg);
@@ -330,24 +330,24 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     //  CLOVER 6
     CLOVER_Presence[5] = true;
-    CLOVER_Shield_Presence[5] = true;
-    CLOVER_Distance[5] = 15*cm;
+    CLOVER_Shield_Presence[5] = false;
+    CLOVER_Distance[5] = 17*cm;
     CLOVER_phi[5] = 0*deg;
     CLOVER_theta[5] = 90*deg;
     CLOVER_rotm[5].rotateY(-90.0 *deg);
     
     //  CLOVER 7
     CLOVER_Presence[6] = true;
-    CLOVER_Shield_Presence[6] = true;
-    CLOVER_Distance[6] = 15*cm;
+    CLOVER_Shield_Presence[6] = false;
+    CLOVER_Distance[6] = 17*cm;
     CLOVER_phi[6] = 180*deg;
     CLOVER_theta[6] = 90*deg;
     CLOVER_rotm[6].rotateY(90.0 *deg);
     
     //  CLOVER 8
     CLOVER_Presence[7] = true;
-    CLOVER_Shield_Presence[7] = true;
-    CLOVER_Distance[7] = 15*cm;
+    CLOVER_Shield_Presence[7] = false;
+    CLOVER_Distance[7] = 17*cm;
     CLOVER_phi[7] = 135*deg;
     CLOVER_theta[7] = 90*deg;
     CLOVER_rotm[7].rotateY(90.0 *deg);
@@ -357,25 +357,25 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //  CLOVER 9
     CLOVER_Presence[8] = false;
     CLOVER_Shield_Presence[8] = false;
-    CLOVER_Distance[8] = 15*cm;
-    CLOVER_phi[8] = -45*deg;
-    CLOVER_theta[8] = 90*deg;
+    CLOVER_Distance[8] = 17*cm;
+    CLOVER_phi[8] = 270*deg;
+    CLOVER_theta[8] = 135*deg;
     CLOVER_rotm[8].rotateY(-90.0 *deg);
     CLOVER_rotm[8].rotateZ(-45.0 *deg);
     
     
     for (G4int i=0; i<numberOf_CLOVER; i++)
     {
-        if(CLOVER_AllPresent_Override) CLOVER_Presence[i] = true;
-        if(CLOVER_AllAbsent_Override) CLOVER_Presence[i] = false;
-        if(CLOVER_AllPresent_Override && CLOVER_AllAbsent_Override) CLOVER_Presence[i] = false;
+        if(CLOVER_AllPresent_Override == true) CLOVER_Presence[i] = true;
+        if(CLOVER_AllAbsent_Override == true) CLOVER_Presence[i] = false;
+        if(CLOVER_AllPresent_Override == true && CLOVER_AllAbsent_Override== true) CLOVER_Presence[i] = false;
         
-        if(CLOVER_Shield_AllPresent_Override) CLOVER_Shield_Presence[i] = true;
-        if(CLOVER_Shield_AllAbsent_Override) CLOVER_Shield_Presence[i] = false;
-        if(CLOVER_Shield_AllPresent_Override && CLOVER_Shield_AllAbsent_Override) CLOVER_Shield_Presence[i] = false;
+        if(CLOVER_Shield_AllPresent_Override == true) CLOVER_Shield_Presence[i] = true;
+        if(CLOVER_Shield_AllAbsent_Override == true) CLOVER_Shield_Presence[i] = false;
+        if(CLOVER_Shield_AllPresent_Override == true && CLOVER_Shield_AllAbsent_Override == true) CLOVER_Shield_Presence[i] = false;
     }
     
-    
+
     
     ////////////////////////////////
     ////        LEPS SETUP
@@ -486,11 +486,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, both sides on
-    K600_BACTAR_sidesOn_Presence = true;
+    K600_BACTAR_sidesOn_Presence = false;
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, both sides off
-    K600_BACTAR_sidesOff_Presence = false;
+    K600_BACTAR_sidesOff_Presence = true;
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, beam left side side off
@@ -677,7 +677,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     
     G4ThreeVector positionVacuumChamber = G4ThreeVector(0,0,0);
     
-    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (34./2)*cm, (36./2)*cm, (100./2)*cm);
+    G4Box* SolidVacuumChamber = new G4Box("VacuumChamber", (100./2)*cm, (100./2)*cm, (100./2)*cm);
     
     G4LogicalVolume* LogicVacuumChamber = new G4LogicalVolume(SolidVacuumChamber, G4_Galactic_Material,"VacuumChamber",0,0,0);
     
@@ -2126,7 +2126,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     //             CLOVER DEFINITION           //
     /////////////////////////////////////////////
     
-    G4double CLOVERtoShield_displacement = 10;  // cm
+    G4double CLOVERtoShield_displacement = 0;  // cm
     
     G4ThreeVector offset_CLOVERInternalVacuum = G4ThreeVector(0*cm, 0*cm, -CLOVERtoShield_displacement*cm);
     G4ThreeVector offset_CLOVEREncasement = G4ThreeVector(0*cm, 0*cm, -CLOVERtoShield_displacement*cm);

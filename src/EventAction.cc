@@ -344,7 +344,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
     bool eventTriggered_CLOVER = false;
 
     
-    for(G4int i=0; i<9; i++)
+    for(G4int i=0; i<8; i++)
     {
         for(G4int k=0; k<CLOVER_TotalTimeSamples; k++)
         {
@@ -352,9 +352,11 @@ void EventAction::EndOfEventAction(const G4Event* event)
             {
                 if(G4RandGauss::shoot(CLOVER_HPGeCrystal_EDep[i][j][k], 0.7) >= CLOVER_HPGeCrystal_ThresholdEnergy)
                 {
+			
                     eventTriggered_CLOVER = true;
                     CLOVER_HPGeCrystal_EDep[i][j][k] = G4RandGauss::shoot(CLOVER_HPGeCrystal_EDep[i][j][k], 1.7);
-                    
+			//G4cout << "i	" << i<< "	CLOVER_HPGeCrystal_EDep   " << CLOVER_HPGeCrystal_EDep[i][j][k] <<  G4endl;                    
+
                     if(Activate_CLOVER_ComptonSupression)
                     {
                         for(G4int l=0; l<CLOVER_ComptonSupression_TimeWindow; l++)
@@ -382,8 +384,10 @@ void EventAction::EndOfEventAction(const G4Event* event)
                         //      For the Entire Clover Array
                       //  analysisManager->FillH1(19, GainCLOVER*CLOVER_EDep[i][k] +  OffsetCLOVER);
                         
+			//G4cout << "i	" << i<< "	CLOVER_EDep[i][k]   " << CLOVER_EDep[i][k] <<  G4endl;
                         analysisManager->FillNtupleIColumn(0, i, 1);
-                        analysisManager->FillNtupleDColumn(0, 8+i, GainCLOVER*CLOVER_EDep[i][k] +  OffsetCLOVER);
+                        analysisManager->FillNtupleDColumn(0, 8+i, CLOVER_EDep[i][k]);
+			analysisManager->FillNtupleDColumn(0, 16,CLOVER_EDep[i][k] );
                     }
                     
                     else if(CLOVER_HPGeCrystal_EDep[i][j][k] != 0)
@@ -393,6 +397,9 @@ void EventAction::EndOfEventAction(const G4Event* event)
                         
                         //      For the Entire Clover Array
                       //  analysisManager->FillH1(19, GainCLOVER*CLOVER_HPGeCrystal_EDep[i][j][k] +  OffsetCLOVER);
+			analysisManager->FillNtupleIColumn(0, i, 1);
+                        analysisManager->FillNtupleDColumn(0, 8+i,CLOVER_HPGeCrystal_EDep[i][j][k]);
+			analysisManager->FillNtupleDColumn(0, 16,CLOVER_HPGeCrystal_EDep[i][j][k]);
                     }
                 }
             }
