@@ -114,6 +114,10 @@ private:
     ////    HAGAR DETECTOR
     G4double    edepHAGAR;
     
+    ////    NAIS DETECTOR
+    G4double    edepNAIS;
+    G4int       NAISNo;
+    
     ////    GENERAL
     G4double    interactiontime;
     G4int       iTS; // Interaction Time Sample

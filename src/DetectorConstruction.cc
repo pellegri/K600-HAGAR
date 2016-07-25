@@ -52,6 +52,7 @@
 #include "G4MaterialPropertiesTable.hh"
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Cons.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SDManager.hh"
@@ -107,7 +108,7 @@ G4ThreadLocal G4FieldManager* DetectorConstruction::fieldManagerMagneticField_K6
 
 DetectorConstruction::DetectorConstruction()
 : G4VUserDetectorConstruction(),
-fAbsorberPV(0), fGapPV(0), fCheckOverlaps(false), PhysiCLOVER_HPGeCrystal(0), PhysiCLOVER_Shield_BGOCrystal(0), PhysiCLOVER_Shield_PMT(0), PhysiTIARA_AA_RS(0), PhysiPADDLE(0), PhysiK600_Quadrupole(0), PhysiK600_Dipole1(0), PhysiK600_Dipole2(0), PhysiHAGAR_NaICrystal(0), PhysiHAGAR_Annulus(0), PhysiHAGAR_FrontDisc(0), Physical_LEPS_HPGeCrystal(0)
+fAbsorberPV(0), fGapPV(0), fCheckOverlaps(false), PhysiCLOVER_HPGeCrystal(0), PhysiCLOVER_Shield_BGOCrystal(0), PhysiCLOVER_Shield_PMT(0), PhysiTIARA_AA_RS(0), PhysiPADDLE(0), PhysiK600_Quadrupole(0), PhysiK600_Dipole1(0), PhysiK600_Dipole2(0), PhysiHAGAR_NaICrystal(0), PhysiHAGAR_Annulus(0), PhysiHAGAR_FrontDisc(0), Physical_LEPS_HPGeCrystal(0),PhysiNAIS_NaICrystal(0)
 {
     WorldSize = 15.*m;
 }
@@ -281,7 +282,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     ////    CLOVER SETUP
     
     CLOVER_AllPresent_Override = false;
-    CLOVER_AllAbsent_Override = false;
+    CLOVER_AllAbsent_Override = true;
     
     CLOVER_Shield_AllPresent_Override = false;
     CLOVER_Shield_AllAbsent_Override = true;
@@ -436,7 +437,65 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         if( LEPS_AllPresent_Override == true && LEPS_AllAbsent_Override == true ) LEPS_Presence[i] = false;
     }
 
+    ////////////////////////////////
+    ////        NAIS SETUP
     
+    NAIS_AllPresent_Override = false;
+    NAIS_AllAbsent_Override = false;
+    
+    
+    //  NAIS 1 ok
+    NAIS_Presence[0] = true;
+    NAIS_Distance[0] = 17.05*cm;
+    NAIS_phi[0] = 225.*deg;
+    NAIS_theta[0] = 135*deg;
+    NAIS_rotm[0].rotateY(225.0 *deg);
+    NAIS_rotm[0].rotateZ(45.0 *deg);
+    
+    //NAIS_theta[0] = 125.26*deg;
+    //NAIS_rotm[0].rotateY(225.0 *deg);
+    //NAIS_rotm[0].rotateZ(35.26 *deg);
+    
+    
+    //  NAIS 2 ok
+    NAIS_Presence[1] = true;
+    NAIS_Distance[1] = 16.11*cm;
+    NAIS_phi[1] = 135.*deg;
+   // NAIS_theta[1] = 125.26*deg;
+    NAIS_theta[1] = 135.0*deg;
+    NAIS_rotm[1].rotateY(135.0 *deg);
+    NAIS_rotm[1].rotateZ(135.0 *deg);
+    
+    //  NAIS 3 ok
+    NAIS_Presence[2] = true;
+    NAIS_Distance[2] = 16.15*cm;
+    NAIS_phi[2] = 180*deg;
+    NAIS_theta[2] = 135*deg;
+    NAIS_rotm[2].rotateY(225.0 *deg);
+    
+    //  NAIS 4 ok
+    NAIS_Presence[3] = true;
+    NAIS_Distance[3] = 17.7*cm;
+    NAIS_phi[3] = 180.*deg;
+    NAIS_theta[3] = 90*deg;
+    NAIS_rotm[3].rotateY(270.*deg);
+    
+    //  NAIS 5 ok
+    NAIS_Presence[4] = true;
+    NAIS_Distance[4] = 17.85*cm;
+    NAIS_phi[4] = 225.0*deg;
+    NAIS_theta[4] = 90.0*deg;
+    NAIS_rotm[4].rotateY(270.0 *deg);
+    NAIS_rotm[4].rotateZ(45.0 *deg);
+    
+    
+    for (G4int i=0; i<numberOf_NAIS; i++)
+    {
+        if( NAIS_AllPresent_Override == true ) NAIS_Presence[i] = true;
+        if( NAIS_AllAbsent_Override == true ) NAIS_Presence[i] = false;
+        if( NAIS_AllPresent_Override == true && NAIS_AllAbsent_Override == true ) NAIS_Presence[i] = false;
+    }
+
     
     ////////////////////////////////////////////
     ////                                    ////
@@ -486,11 +545,11 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, both sides on
-    K600_BACTAR_sidesOn_Presence = false;
+    K600_BACTAR_sidesOn_Presence = true;
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, both sides off
-    K600_BACTAR_sidesOff_Presence = true;
+    K600_BACTAR_sidesOff_Presence = false;
     
     ////////////////////////////////////////////////
     ////    New K600 Target Chamber - New scattering chamber, beam left side side off
@@ -682,7 +741,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4LogicalVolume* LogicVacuumChamber = new G4LogicalVolume(SolidVacuumChamber, G4_Galactic_Material,"VacuumChamber",0,0,0);
     
     
-    new G4PVPlacement(0,               // no rotation
+  /*  new G4PVPlacement(0,               // no rotation
                       positionVacuumChamber, // at (x,y,z)
                       LogicVacuumChamber,       // its logical volume
                       "VacuumChamber",       // its name
@@ -691,7 +750,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
                       0,               // copy number
                       fCheckOverlaps); // checking overlaps
     
-    
+    */
     
     
     
@@ -731,7 +790,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
                           G4ThreeVector(), // at (x,y,z)
                           LogicBACTAR,       // its logical volume
                           "BACTAR",       // its name
-                          LogicVacuumChamber,         // its mother  volume LogicVacuumChamber
+                          LogicWorld,//LogicVacuumChamber,         // its mother  volume LogicVacuumChamber
                           false,           // no boolean operations
                           0,               // copy number
                           fCheckOverlaps); // checking overlaps
@@ -2629,6 +2688,80 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
         
     }
     
+    ////////////////////////////////////////
+    ////        NAIS DEFINITION         ////
+    ////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////
+    //              NAIS NaICrystals
+    //////////////////////////////////////////////////////////
+    
+      G4Tubs* Solid_NaICrystal = new G4Tubs("Solid_NaICrystal", 0.*mm, 38.1*mm, 38.1*mm, 0.*deg, 360.*deg);
+    //G4Cons* Solid_NaICrystal = new G4Cons("Solid_NaICrystal", 0.*mm, 15.*mm, 0.*mm, 38.1*mm, 38.1*mm, 0.*deg, 360.*deg);
+    
+    G4LogicalVolume* Logic_NAIS_NaICrystal = new G4LogicalVolume(Solid_NaICrystal, G4_SODIUM_IODIDE_Material,"LogicNAISNaICrystal",0,0,0);
+    
+    
+    ////////////////////////////////////////////////////
+    //               NAIS INITIALIZATION
+    ////////////////////////////////////////////////////
+    
+    
+    for(G4int i=0; i<numberOf_NAIS; i++)
+    {
+        //NAIS_position[i] = (17.0*cm+0.0*mm)*G4ThreeVector( std::sin(NAIS_theta[i]) * std::cos(NAIS_phi[i]), std::sin(NAIS_theta[i]) * std::sin(NAIS_phi[i]), std::cos(NAIS_theta[i]));
+        NAIS_position[i] = ((NAIS_Distance[i]+3.81*cm))*G4ThreeVector( std::sin(NAIS_theta[i]) * std::cos(NAIS_phi[i]), std::sin(NAIS_theta[i]) * std::sin(NAIS_phi[i]), std::cos(NAIS_theta[i]));
+     /*   YperpW[i] = G4ThreeVector(std::cos(NAIS_theta[i]) * std::cos(NAIS_phi[i]), std::cos(NAIS_theta[i]) * std::sin(NAIS_phi[i]), -std::sin(NAIS_theta[i]));
+        
+        
+        W[i]=G4ThreeVector(0.,0.,0.);
+        U[i]=G4ThreeVector(0.,0.,0.);
+        V[i]=G4ThreeVector(0.,0.,0.);
+        
+        
+        W[i] = NAIS_position[i].Unit();
+        U[i] = W[i].Cross(YperpW[i]);
+        V[i] = W[i].Cross(U[i]);
+        
+        U[i] = U.Unit();
+        V[i] = V.Unit();
+        
+        U[i].Rotate(beta_u * M_PI/180, U[i]);
+        V[i].Rotate(beta_u * M_PI/180, U[i]);
+        
+        U[i].Rotate(beta_v * M_PI/180, V[i]);
+        V[i].Rotate(beta_v * M_PI/180, V[i]);
+        
+        U[i].Rotate(beta_w * M_PI/180, W[i]);
+        V[i].Rotate(beta_w * M_PI/180, W[i]);
+        
+        NAIS_transform[i] = (U[i],V[i],W[i]);
+        
+        */
+        
+        
+         NAIS_transform[i] = G4Transform3D(NAIS_rotm[i],NAIS_position[i]);
+        
+        
+        
+        /////////////////////////////
+        //          NAIS
+        if(NAIS_Presence[i] == true)
+        {
+            
+            PhysiNAIS_NaICrystal = new G4PVPlacement(NAIS_transform[i],
+                                                     Logic_NAIS_NaICrystal,       // its logical volume
+                                                     "NAISNaICrystal",       // its name
+                                                     LogicWorld,    // its mother  volume
+                                                     false,           // no boolean operations
+                                                     i,               // copy number
+                                                     fCheckOverlaps); // checking overlaps
+            
+        }
+        
+    }
+
+    
     
     
     //////////////////////////////////////////////////
@@ -2828,6 +2961,14 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes()
     G4VisAttributes* VacuumChamber_VisAtt= new G4VisAttributes(G4Colour(1.0, 1.0, 1.0));
     //VacuumChamber_VisAtt->SetVisibility(false);
     LogicVacuumChamber->SetVisAttributes(VacuumChamber_VisAtt);
+    
+    
+    ////////////////////////////////
+    //      NAIS VISUALIZATION
+    ////////////////////////////////
+    
+    G4VisAttributes* NAIS_NaICrystal_VisAtt = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0));
+    NAIS_NaICrystal_VisAtt->SetForceSolid(true);
     
     
     ////////////////////////////////

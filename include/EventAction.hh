@@ -222,6 +222,15 @@ public:
     void AddEnergyHAGAR(G4double a)	{HAGAR_EDep += a; };
     
     
+    
+    ////////////////////////
+    //      NAIS
+    
+    G4double    NAIS_EDep[5];
+    
+    void AddEnergyNAIS(G4int i, G4double a)	{NAIS_EDep[i] += a; };
+    
+    
     /////////////////////////////////////////
     //          PADDLE DETECTORS
     G4double GainPADDLE;

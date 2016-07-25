@@ -161,6 +161,11 @@ void EventAction::BeginOfEventAction(const G4Event* evt)
         }
     }
     
+    for(G4int i=0; i<5; i++)
+    {
+            NAIS_EDep[i] = 0.;
+        
+    }
     
     for(G4int i=0; i<5; i++)
     {
@@ -485,7 +490,29 @@ void EventAction::EndOfEventAction(const G4Event* event)
     
     if(eventTriggered_HAGAR) analysisManager->AddNtupleRow(0);
 
+    ////////////////////////////////////////////////////
+    //
+    //              NAIS DETECTOR
+    //
+    ////////////////////////////////////////////////////
     
+    bool eventTriggered_NAIS = false;
+    
+    for(G4int i=0; i<5; i++)
+    {
+       // cout << "503 NAIS_EDep[i]   " << NAIS_EDep[i] <<  endl;
+      if(NAIS_EDep[i]>0.0)
+      {
+            NAIS_EDep[i]= abs(G4RandGauss::shoot(NAIS_EDep[i], 17));
+        eventTriggered_NAIS = true;
+         // cout << " 507 NAIS_EDep[i]   " << NAIS_EDep[i] <<  endl;
+        analysisManager->FillNtupleIColumn(0, i, 1);
+        analysisManager->FillNtupleDColumn(0, i+5, NAIS_EDep[i]);
+      }
+    }
+    
+    if(eventTriggered_NAIS) analysisManager->AddNtupleRow(0);
+
     
     ////////////////////////////////////////////////////////
     //

@@ -380,6 +380,26 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
         
     }
     
+    ////////////////////////////////////////////////
+    //              NAIS DETECTOR
+    ////////////////////////////////////////////////
+    
+    
+    if(volumeName == "NAISNaICrystal")
+    {
+        channelID = volume->GetCopyNo();
+        NAISNo = channelID;
+        
+       // cout << "NAISNo   " << NAISNo <<  endl;
+        
+        edepNAIS = aStep->GetTotalEnergyDeposit()/keV;
+        
+      //  cout << "edepNAIS   " << edepNAIS <<  endl;
+        
+        fEventAction->AddEnergyNAIS(NAISNo,edepNAIS);
+        
+    }
+    
     
     //if (volumeName=="TIARA_Assembly" && !fEventAction->GA_GetLineOfSight() )   G4cout << "Here is the TIARA_Assembly Hit!" << G4endl;
     
